@@ -1,12 +1,15 @@
 package applicationFX;
 
 
+
 import javafx.fxml.FXML;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
 import javafx.scene.control.Slider;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
+import javafx.application.Platform;
+import javafx.concurrent.Task;
 
 public class VCGUIController {
 	
@@ -21,7 +24,8 @@ public class VCGUIController {
 	private Button play;
 	
 	private double f;
-	private Image nouvelle;
+	private Image nouvelle ;
+	
 	
 	@FXML
 	 protected void CursorChanged() {
@@ -30,7 +34,7 @@ public class VCGUIController {
 		
 		System.out.println(f);
 		frameNumber.setText("" + (int)f);
-		nouvelle = new Image(String.format("file:///home/david/git/OVERLAY_ClientSide/OVERLAY_ClientSide/images/frames_WakeApp/image2_%05d.png", (int)f));
+		nouvelle = new Image(String.format("file:///home/autor/git/VideoCreationJavaFXClient/VideoCreationJavaFXClient/images/frames_WakeApp/image2_%05d.png", (int)f));
 		view_0.setImage(nouvelle);
 		
 	 }
@@ -40,7 +44,7 @@ public class VCGUIController {
 		
 		f = cursorFrame1.getValue();
         System.out.println(f);
-		nouvelle = new Image(String.format("file:///home/david/git/OVERLAY_ClientSide/OVERLAY_ClientSide/images/frames_WakeApp/image2_%05d.png", (int)f));
+		nouvelle = new Image(String.format("file:///home/autor/git/VideoCreationJavaFXClient/VideoCreationJavaFXClient/images/frames_WakeApp/image2_%05d.png", (int)f));
 		view_0.setImage(nouvelle);
 		frameNumber.setText("" + (int)f);
 		
@@ -51,25 +55,46 @@ public class VCGUIController {
 	 protected void OnPlayClicked() {
 		
 		f = cursorFrame1.getValue();
-		f=(int)f;
-		boolean run = true;
-		while (run){
-			//nouvelle = new Image(String.format("file:///home/david/git/OVERLAY_ClientSide/OVERLAY_ClientSide/images/frames_WakeApp/image2_%05d.png", f));
-			//view_0.setImage(nouvelle);
-			
-			try { Thread.sleep(200); }
-            catch (Exception e){}
+		new Thread(viewTask).start();
 
-			f++;
-			System.out.println(f);
-			frameNumber.setText("" + f);
+	    }
+
+	
+	public void miseAJour(){
+		nouvelle = new Image(String.format("file:///home/autor/git/VideoCreationJavaFXClient/VideoCreationJavaFXClient/images/frames_WakeApp/image2_%05d.png", (int)f));
+		view_0.setImage(nouvelle);
+		frameNumber.setText("" + (int)f);
+		cursorFrame1.setValue(f);
+	}
+
+	
+
+
+	Task viewTask = new Task() {
+		@Override
+	    public Void call() throws Exception{
 			
-			if (f > 1000){
-				run = false;
+			boolean run = true;
+			while (run){
+					try {
+						Thread.sleep(40);
+					} catch (InterruptedException e) {
+						e.printStackTrace();
+					}
+					f++;
+					System.out.println((int)f);
+	    	
+	    	        Platform.runLater(new Runnable() {
+	    		        public void run(){
+	    			        miseAJour();
+	    		        }
+	    	        });
 			}
-		}
-		
-	 }
+	    	
+	    	
+			return null;
+	    }
+	};
 	
 
 }
