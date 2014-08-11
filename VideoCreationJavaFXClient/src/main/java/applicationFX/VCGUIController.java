@@ -22,9 +22,14 @@ public class VCGUIController {
 	private ImageView view_0;
 	@FXML
 	private Button play;
+	@FXML
+	private Button stop;
 	
 	private double f;
 	private Image nouvelle ;
+	
+	boolean run = true;
+	Thread maj;
 	
 	
 	@FXML
@@ -54,10 +59,22 @@ public class VCGUIController {
 	@FXML
 	 protected void OnPlayClicked() {
 		
+		run = true;
+		System.out.println("" + run);
 		f = cursorFrame1.getValue();
-		new Thread(viewTask).start();
+		maj = new Thread(viewTask);
+		maj.start();
+	    }
+	
+	@FXML
+	 protected void OnStopClicked() {
+		
+		run = false;
+		
+		System.out.println("" + run);
 
 	    }
+
 
 	
 	public void miseAJour(){
@@ -70,11 +87,11 @@ public class VCGUIController {
 	
 
 
-	Task viewTask = new Task() {
+	Task<?> viewTask = new Task<Object>() {
 		@Override
 	    public Void call() throws Exception{
 			
-			boolean run = true;
+			System.out.println("play");
 			while (run){
 					try {
 						Thread.sleep(40);
@@ -82,7 +99,7 @@ public class VCGUIController {
 						e.printStackTrace();
 					}
 					f++;
-					System.out.println((int)f);
+					//System.out.println((int)f);
 	    	
 	    	        Platform.runLater(new Runnable() {
 	    		        public void run(){

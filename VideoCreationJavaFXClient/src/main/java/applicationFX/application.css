@@ -1,0 +1,13 @@
+#play {          
+    -fx-background-image: url("../../../images/icons/Right.png");
+    -fx-background-size: 18 18;
+    -fx-background-repeat: no-repeat;
+    -fx-background-position:left;   
+}
+
+#stop {          
+    -fx-background-image: url("../../../images/icons/Cancel.png");
+    -fx-background-size: 18 18;
+    -fx-background-repeat: no-repeat;
+    -fx-background-position:left;   
+}
