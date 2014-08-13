@@ -8,8 +8,6 @@ import javafx.scene.control.Label;
 import javafx.scene.control.Slider;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
-import javafx.application.Platform;
-import javafx.concurrent.Task;
 
 public class VCGUIController {
 	
@@ -27,9 +25,9 @@ public class VCGUIController {
 	
 	private double f;
 	private Image nouvelle ;
-	
 	boolean run = true;
-	Thread maj;
+
+	ViewService viewService = new ViewService(this);
 	
 	
 	@FXML
@@ -58,60 +56,35 @@ public class VCGUIController {
 	
 	@FXML
 	 protected void OnPlayClicked() {
-		
-		run = true;
-		System.out.println("" + run);
+        run = true;
 		f = cursorFrame1.getValue();
-		maj = new Thread(viewTask);
-		maj.start();
-	    }
+		viewService.restart();
+	 }
 	
 	@FXML
 	 protected void OnStopClicked() {
-		
 		run = false;
-		
-		System.out.println("" + run);
-
 	    }
 
+	public Label getFrameNumber() {
+		return frameNumber;
+	}
 
-	
-	public void miseAJour(){
-		nouvelle = new Image(String.format("file:///home/autor/git/VideoCreationJavaFXClient/VideoCreationJavaFXClient/images/frames_WakeApp/image2_%05d.png", (int)f));
-		view_0.setImage(nouvelle);
-		frameNumber.setText("" + (int)f);
-		cursorFrame1.setValue(f);
+	public Slider getCursorFrame1() {
+		return cursorFrame1;
+	}
+
+	public ImageView getView_0() {
+		return view_0;
+	}
+
+	public double getF() {
+		return f;
+	}
+
+	public boolean isRun() {
+		return run;
 	}
 
 	
-
-
-	Task<?> viewTask = new Task<Object>() {
-		@Override
-	    public Void call() throws Exception{
-			
-			System.out.println("play");
-			while (run){
-					try {
-						Thread.sleep(40);
-					} catch (InterruptedException e) {
-						e.printStackTrace();
-					}
-					f++;
-					//System.out.println((int)f);
-	    	
-	    	        Platform.runLater(new Runnable() {
-	    		        public void run(){
-	    			        miseAJour();
-	    		        }
-	    	        });
-			}
-	    	
-	    	
-			return null;
-	    }
-	};
-	
-
 }

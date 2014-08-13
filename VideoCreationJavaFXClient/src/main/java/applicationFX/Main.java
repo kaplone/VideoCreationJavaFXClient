@@ -4,8 +4,6 @@ import java.net.URL;
 import java.util.ResourceBundle;
 
 import javafx.application.Application;
-import javafx.beans.value.ChangeListener;
-import javafx.beans.value.ObservableValue;
 import javafx.stage.Stage;
 import javafx.scene.Scene;
 import javafx.scene.control.Label;
@@ -31,13 +29,6 @@ public class Main extends Application implements javafx.fxml.Initializable {
 	@Override
 	public void start(Stage primaryStage) {
 		
-//		cursorFrame1.valueProperty().addListener(new ChangeListener<Number>() {
-//	        public void changed(ObservableValue<? extends Number> ov,
-//	            Number old_val, Number new_val) {
-//	        	frameNumber.setText("" + new_val);
-//	        }
-//	    });
-
 		
 		try {
 			BorderPane root = (BorderPane)FXMLLoader.load(getClass().getResource("VCGUI.fxml"));
