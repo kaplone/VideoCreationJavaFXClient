@@ -5,37 +5,11 @@
 <?import javafx.scene.control.*?>
 <?import javafx.scene.image.*?>
 <?import javafx.scene.layout.*?>
+<?import javafx.scene.media.*?>
 
-<BorderPane prefHeight="619.0" prefWidth="1015.0" stylesheets="@application.css" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1" fx:controller="applicationFX.VCGUIController">
-   <left>
-      <VBox prefHeight="418.0" prefWidth="490.0" BorderPane.alignment="CENTER">
-         <children>
-            <ImageView fx:id="view_0" fitHeight="446.0" fitWidth="262.0" pickOnBounds="true" preserveRatio="true">
-               <image>
-                  <Image url="@../../../../git/OVERLAY_ClientSide/OVERLAY_ClientSide/images/frames_WakeApp/image2_00006.png" />
-               </image>
-               <VBox.margin>
-                  <Insets bottom="10.0" left="75.0" />
-               </VBox.margin>
-            </ImageView>
-            <HBox minWidth="-Infinity" prefHeight="100.0" prefWidth="400.0">
-               <VBox.margin>
-                  <Insets bottom="10.0" top="10.0" />
-               </VBox.margin>
-               <children>
-                  <Button mnemonicParsing="false" text="Button" />
-                  <Button mnemonicParsing="false" text="frame -" />
-                  <Button fx:id="play" minHeight="-Infinity" minWidth="-Infinity" mnemonicParsing="false" onAction="#OnPlayClicked" prefWidth="80.0" text="Play" />
-                  <Button fx:id="stop" minWidth="-Infinity" mnemonicParsing="false" onAction="#OnStopClicked" prefWidth="80.0" text="Stop" />
-                  <Button fx:id="next" mnemonicParsing="false" text="frame +" wrapText="true" />
-                  <Label fx:id="frameNumber" onInputMethodTextChanged="#CursorChanged" text="Label" />
-               </children>
-            </HBox>
-         </children>
-      </VBox>
-   </left>
+<BorderPane fx:id="root" prefHeight="656.0" prefWidth="1015.0" stylesheets="@application.css" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1" fx:controller="applicationFX.VCGUIController">
    <top>
-      <HBox prefHeight="72.0" prefWidth="1015.0" BorderPane.alignment="CENTER">
+      <HBox prefHeight="53.0" prefWidth="1015.0" BorderPane.alignment="CENTER">
          <children>
             <Separator prefWidth="200.0" />
          </children>
@@ -45,23 +19,24 @@
       <HBox prefHeight="506.0" prefWidth="547.0" BorderPane.alignment="CENTER">
          <children>
             <Separator orientation="VERTICAL" prefHeight="418.0" prefWidth="0.0" />
-            <VBox prefHeight="200.0" prefWidth="100.0">
+            <VBox prefHeight="418.0" prefWidth="171.0">
                <children>
-                  <Button mnemonicParsing="false" text="Button" />
-                  <ComboBox prefWidth="150.0">
+                  <ComboBox prefHeight="35.0" prefWidth="155.0" promptText="Set action">
                      <VBox.margin>
                         <Insets top="50.0" />
                      </VBox.margin>
                   </ComboBox>
                </children>
-            </VBox>
+            </VBox><VBox prefHeight="200.0" prefWidth="100.0">
+<children><ListView prefHeight="200.0" prefWidth="200.0" /><MediaView fitHeight="200.0" fitWidth="200.0" />
+</children></VBox>
          </children>
       </HBox>
    </right>
    <bottom>
-      <VBox prefHeight="129.0" prefWidth="808.0" BorderPane.alignment="CENTER">
+      <VBox prefHeight="91.0" prefWidth="1015.0" BorderPane.alignment="CENTER">
          <children>
-            <Slider fx:id="cursorFrame1" blockIncrement="1.0" max="1000.0" onKeyPressed="#CursorKeyPressed" onKeyReleased="#CursorKeyPressed" onKeyTyped="#CursorKeyPressed" onMouseReleased="#CursorChanged" showTickLabels="true" showTickMarks="true" value="15.0">
+            <Slider fx:id="cursorFrame1" blockIncrement="1.0" max="1000.0" onKeyPressed="#CursorKeyPressed" onKeyReleased="#CursorKeyPressed" onKeyTyped="#CursorKeyPressed" onMouseReleased="#CursorChanged" prefHeight="48.0" prefWidth="1015.0" showTickLabels="true" showTickMarks="true" value="15.0">
                <VBox.margin>
                   <Insets bottom="10.0" />
                </VBox.margin>
@@ -69,4 +44,38 @@
          </children>
       </VBox>
    </bottom>
+<left><Pane fx:id="pane_1" prefHeight="418.0" prefWidth="421.0" BorderPane.alignment="CENTER">
+<children><VBox fx:id="view_2" prefHeight="418.0" prefWidth="490.0">
+<children>
+<ImageView fx:id="view_0" fitHeight="446.0" fitWidth="262.0" onMouseClicked="#OnMouseClickedFrame" onMouseEntered="#OnMouseOverFrame" onMouseMoved="#OnMouseMovedOverFrame" pickOnBounds="true" preserveRatio="true">
+<image>
+<Image url="@../../../../images/frames_WakeApp/image2_00014.png" />
+</image>
+<VBox.margin>
+<Insets bottom="10.0" left="75.0" />
+</VBox.margin>
+</ImageView>
+<HBox fx:id="view_1" minWidth="-Infinity" prefHeight="100.0" prefWidth="400.0">
+<children>
+<Button mnemonicParsing="false" text="Del action">
+<HBox.margin>
+<Insets left="20.0" right="20.0" />
+</HBox.margin>
+</Button>
+<Button fx:id="play" minHeight="-Infinity" minWidth="-Infinity" mnemonicParsing="false" onAction="#OnPlayClicked" prefWidth="80.0" text="Play" />
+<Button fx:id="stop" minWidth="-Infinity" mnemonicParsing="false" onAction="#OnStopClicked" prefWidth="80.0" text="Stop" />
+<Label fx:id="frameNumber" onInputMethodTextChanged="#CursorChanged" text="000">
+<padding>
+<Insets left="20.0" right="20.0" />
+</padding>
+</Label>
+</children>
+<VBox.margin>
+<Insets bottom="10.0" top="10.0" />
+</VBox.margin>
+</HBox>
+</children>
+</VBox>
+</children></Pane>
+</left>
 </BorderPane>
