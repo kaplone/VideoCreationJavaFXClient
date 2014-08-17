@@ -4,6 +4,9 @@ package applicationFX;
 import java.net.URL;
 import java.util.ResourceBundle;
 
+import javafx.beans.binding.ObjectBinding;
+import javafx.beans.binding.StringBinding;
+import javafx.beans.property.SimpleDoubleProperty;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
 import javafx.scene.control.Button;
@@ -13,8 +16,6 @@ import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.BorderPane;
-import javafx.scene.layout.Pane;
-import javafx.scene.layout.VBox;
 import javafx.scene.paint.Color;
 import javafx.scene.shape.Line;
 
@@ -35,8 +36,6 @@ public class VCGUIController implements Initializable{
 	@FXML
 	private Button stop;
 	
-	private double f;
-	private Image nouvelle ;
 	boolean run = true;
 	
 	Line verticale = new Line();
@@ -47,35 +46,44 @@ public class VCGUIController implements Initializable{
 	
 	boolean added = false;
 	
-	
-	@FXML
-	 protected void CursorChanged() {
-		
-		f = cursorFrame1.getValue();
-		
-		System.out.println(f);
-		frameNumber.setText("" + (int)f);
-		nouvelle = new Image(String.format("file:///home/autor/git/VideoCreationJavaFXClient/VideoCreationJavaFXClient/images/frames_WakeApp/image2_%05d.png", (int)f));
-		view_0.setImage(nouvelle);
-		
-	 }
-	
-	@FXML
-	 protected void CursorKeyPressed() {
-		
-		f = cursorFrame1.getValue();
-        System.out.println(f);
-		nouvelle = new Image(String.format("file:///home/autor/git/VideoCreationJavaFXClient/VideoCreationJavaFXClient/images/frames_WakeApp/image2_%05d.png", (int)f));
-		view_0.setImage(nouvelle);
-		frameNumber.setText("" + (int)f);
-		
-	 }
+	SimpleDoubleProperty fNumber = new SimpleDoubleProperty();
 	
 	
+	protected void initBinds(){
+		
+		StringBinding strFrame = new StringBinding() {
+			{
+				super.bind(cursorFrame1.valueProperty());
+			}
+			
+			@Override
+			protected String computeValue() {
+				return "" + cursorFrame1.valueProperty().intValue();
+			}
+		};
+		
+		ObjectBinding<Image> imgFrame = new ObjectBinding<Image>() {
+			{
+				super.bind(cursorFrame1.valueProperty());
+			}
+			
+			@Override
+			protected Image computeValue() {
+				return new Image(String.format("file:///home/david/git/VideoCreationJavaFXClient/VideoCreationJavaFXClient/images/frames_WakeApp/image2_%05d.png", cursorFrame1.valueProperty().intValue()));
+			}
+		};
+		
+		frameNumber.textProperty().unbind();
+		frameNumber.textProperty().bind(strFrame);
+		
+		view_0.imageProperty().unbind();
+		view_0.imageProperty().bind(imgFrame);
+	}
+
+
 	@FXML
 	 protected void OnPlayClicked() {
         run = true;
-		f = cursorFrame1.getValue();
 		viewService.restart();
 	 }
 	
@@ -109,8 +117,7 @@ public class VCGUIController implements Initializable{
 	
 	@FXML
 	 protected void OnMouseClickedFrame(MouseEvent event) {
-		
-		
+	
 	}
 	
 	
@@ -143,7 +150,7 @@ public class VCGUIController implements Initializable{
 	}
 
 	public double getF() {
-		return f;
+		return cursorFrame1.getValue();
 	}
 
 	public boolean isRun() {
@@ -152,6 +159,8 @@ public class VCGUIController implements Initializable{
 
 	@Override
 	public void initialize(URL location, ResourceBundle resources) {
+		
+		initBinds();
 		
 	}
 

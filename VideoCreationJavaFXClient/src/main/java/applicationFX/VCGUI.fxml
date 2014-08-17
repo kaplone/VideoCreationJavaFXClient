@@ -36,7 +36,7 @@
    <bottom>
       <VBox prefHeight="91.0" prefWidth="1015.0" BorderPane.alignment="CENTER">
          <children>
-            <Slider fx:id="cursorFrame1" blockIncrement="1.0" max="1000.0" onKeyPressed="#CursorKeyPressed" onKeyReleased="#CursorKeyPressed" onKeyTyped="#CursorKeyPressed" onMouseReleased="#CursorChanged" prefHeight="48.0" prefWidth="1015.0" showTickLabels="true" showTickMarks="true" value="15.0">
+            <Slider fx:id="cursorFrame1" blockIncrement="1.0" max="1000.0" prefHeight="48.0" prefWidth="1015.0" showTickLabels="true" showTickMarks="true" value="15.0">
                <VBox.margin>
                   <Insets bottom="10.0" />
                </VBox.margin>
@@ -64,7 +64,7 @@
 </Button>
 <Button fx:id="play" minHeight="-Infinity" minWidth="-Infinity" mnemonicParsing="false" onAction="#OnPlayClicked" prefWidth="80.0" text="Play" />
 <Button fx:id="stop" minWidth="-Infinity" mnemonicParsing="false" onAction="#OnStopClicked" prefWidth="80.0" text="Stop" />
-<Label fx:id="frameNumber" onInputMethodTextChanged="#CursorChanged" text="000">
+<Label fx:id="frameNumber" text="000">
 <padding>
 <Insets left="20.0" right="20.0" />
 </padding>
