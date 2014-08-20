@@ -8,27 +8,11 @@
 <?import javafx.scene.media.*?>
 
 <BorderPane fx:id="root" prefHeight="656.0" prefWidth="1015.0" stylesheets="@application.css" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1" fx:controller="applicationFX.VCGUIController">
-   <top>
-      <HBox prefHeight="53.0" prefWidth="1015.0" BorderPane.alignment="CENTER">
-         <children>
-            <Separator prefWidth="200.0" />
-         </children>
-      </HBox>
-   </top>
    <right>
       <HBox prefHeight="506.0" prefWidth="547.0" BorderPane.alignment="CENTER">
          <children>
-            <Separator orientation="VERTICAL" prefHeight="418.0" prefWidth="0.0" />
-            <VBox prefHeight="418.0" prefWidth="171.0">
-               <children>
-                  <ComboBox prefHeight="35.0" prefWidth="155.0" promptText="Set action">
-                     <VBox.margin>
-                        <Insets top="50.0" />
-                     </VBox.margin>
-                  </ComboBox>
-               </children>
-            </VBox><VBox prefHeight="200.0" prefWidth="100.0">
-<children><ListView prefHeight="200.0" prefWidth="200.0" /><MediaView fitHeight="200.0" fitWidth="200.0" />
+            <Separator orientation="VERTICAL" prefHeight="418.0" prefWidth="0.0" /><VBox fx:id="box1" prefHeight="514.0" prefWidth="538.0">
+<children><ListView fx:id="medias" blendMode="BLUE" onDragDetected="#importMediaDetec" onDragDone="#importMediaDone" onDragDropped="#importMediaDrop" onDragEntered="#importMediaEnter" onDragExited="#importMediaExit" onDragOver="#importMediaOver" onMouseDragEntered="#importMediaRequest" onMouseDragReleased="#importMedia" prefHeight="193.0" prefWidth="202.0" />
 </children></VBox>
          </children>
       </HBox>
@@ -78,4 +62,38 @@
 </VBox>
 </children></Pane>
 </left>
+   <top>
+      <VBox prefHeight="51.0" prefWidth="1015.0" BorderPane.alignment="CENTER">
+         <children>
+            <MenuBar maxWidth="1.7976931348623157E308" prefHeight="29.0" prefWidth="453.0">
+               <menus>
+                  <Menu mnemonicParsing="false" text="File">
+                     <items>
+                        <MenuItem fx:id="menuOpenProject" mnemonicParsing="false" onAction="#OnMenuOpenProject" text="Open project" />
+                        <MenuItem mnemonicParsing="false" text="Save project" />
+                        <MenuItem mnemonicParsing="false" text="Save project as" />
+                        <MenuItem mnemonicParsing="false" text="property" />
+                        <MenuItem mnemonicParsing="false" text="Close" />
+                     </items>
+                  </Menu>
+                  <Menu mnemonicParsing="false" text="Edit">
+                     <items>
+                        <MenuItem mnemonicParsing="false" text="Delete" />
+                     </items>
+                  </Menu>
+                  <Menu mnemonicParsing="false" text="Options">
+                     <items>
+                        <MenuItem mnemonicParsing="false" text="Settings" />
+                     </items>
+                  </Menu>
+                  <Menu mnemonicParsing="false" text="Help">
+                     <items>
+                        <MenuItem mnemonicParsing="false" text="About" />
+                     </items>
+                  </Menu>
+               </menus>
+            </MenuBar>
+         </children>
+      </VBox>
+   </top>
 </BorderPane>
