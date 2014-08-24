@@ -2,20 +2,24 @@ package applicationFX;
 
 
 import java.io.File;
-import java.io.IOException;
 import java.net.URL;
 import java.util.ResourceBundle;
 
-import org.jcodec.api.JCodecException;
-
+import utils.ImportedMedia;
+import utils.ParseMedias;
 import javafx.beans.binding.ObjectBinding;
 import javafx.beans.binding.StringBinding;
+import javafx.beans.property.DoubleProperty;
+import javafx.beans.property.ObjectProperty;
 import javafx.beans.property.SimpleDoubleProperty;
-import javafx.event.Event;
+import javafx.beans.property.SimpleObjectProperty;
+import javafx.collections.FXCollections;
+import javafx.collections.ObservableList;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
+import javafx.scene.control.ListCell;
 import javafx.scene.control.ListView;
 import javafx.scene.control.MenuItem;
 import javafx.scene.control.Slider;
@@ -31,6 +35,7 @@ import javafx.scene.paint.Color;
 import javafx.scene.shape.Line;
 import javafx.stage.FileChooser;
 import javafx.stage.Stage;
+import javafx.util.Callback;
 
 
 public class VCGUIController implements Initializable{
@@ -61,25 +66,42 @@ public class VCGUIController implements Initializable{
 	
 	// ----- medias -------
 	@FXML
-	private ListView<String> medias;
+	private ListView<ImportedMedia> medias;
+	
+	private ObservableList<ImportedMedia> mediaArray = FXCollections.observableArrayList();
+	
+	private ImportedMedia currentMedia;
+	
+	
 	@FXML
 	private VBox box1;
 	
-	
-	
-	boolean run = true;
-	
-	Line verticale = new Line();
-	Line horizontale = new Line();
-	Line [] lines = new Line [] {verticale, horizontale};
+	private Line verticale = new Line();
+	private Line horizontale = new Line();
+	private Line [] lines = new Line [] {verticale, horizontale};
 
-	ViewService viewService = new ViewService(this);
+	private ViewService viewService = new ViewService(this);
 	
-	boolean added = false;
+	private boolean added = false;
+	private boolean run = true;
 	
-	SimpleDoubleProperty fNumber = new SimpleDoubleProperty();
+	private DoubleProperty fNumber = new SimpleDoubleProperty();
 	
+	private static ObjectProperty<File> baseDir = new SimpleObjectProperty<File>();
 	
+	public static ObjectProperty<File> getBaseDir() {
+		return baseDir;
+	}
+
+
+	public void setBaseDir(ObjectProperty<File> baseDir) {
+		this.baseDir = baseDir;
+	}
+	
+	ObjectBinding<Double> currentPosition;
+	ObjectBinding<Image> imgFrame ;
+
+
 	protected void initBinds(){
 		
 		StringBinding strFrame = new StringBinding() {
@@ -93,17 +115,35 @@ public class VCGUIController implements Initializable{
 			}
 		};
 		
-		ObjectBinding<Image> imgFrame = new ObjectBinding<Image>() {
+		imgFrame = new ObjectBinding<Image>() {
 			{
 				super.bind(cursorFrame1.valueProperty());
 			}
 			
 			@Override
 			protected Image computeValue() {
-				//return new Image(String.format("file:///home/david/git/VideoCreationJavaFXClient/VideoCreationJavaFXClient/images/frames_WakeApp/image2_%05d.png", cursorFrame1.valueProperty().intValue()));
-				return new Image(String.format("file:///home/david/Bureau/img/frame_%08d.png", cursorFrame1.valueProperty().intValue()));
+				if (currentMedia != null){
+					return new Image("file://" + currentMedia.mediaPngPathProperty().get().toString()
+							                   + File.separator
+							                   +  String.format("frame_%08d.png", cursorFrame1.valueProperty().intValue()));
+				}
+				else return null;
 			}
 		};
+		
+		currentPosition = new ObjectBinding<Double>() {
+			{
+				super.bind(cursorFrame1.valueProperty());
+			}
+			
+			@Override
+			protected Double computeValue() {
+			    return cursorFrame1.valueProperty().get();
+			}
+				
+		};
+		
+		
 		
 		frameNumber.textProperty().unbind();
 		frameNumber.textProperty().bind(strFrame);
@@ -113,10 +153,13 @@ public class VCGUIController implements Initializable{
 	}
 
 
-	protected void initModels(){
+	protected void initModels(){	
 		
-		
-		
+	}
+	
+	protected void initPrefs(){
+		String path = System.getProperty("user.home") + File.separator + "VideoCreation" + File.separator + "medias";
+	    baseDir.set(new File(path));
 	}
 	
 	@FXML
@@ -170,7 +213,6 @@ public class VCGUIController implements Initializable{
         		
 		horizontale.setStartY(y);
 		horizontale.setEndY(y);
-		
 
 	}
 	
@@ -188,71 +230,36 @@ public class VCGUIController implements Initializable{
 		
 	}
 	
-	@FXML
-	private void importMediaRequest(DragEvent event){
-		
-	}
-		
-	@FXML
-	private void importMedia(DragEvent event){
-		
-	}
 	
 	@FXML
 	private void importMediaDrop(DragEvent event){
 		
-		Dragboard db = event.getDragboard();
-		boolean success = false;
+		mediaArray.addAll(ParseMedias.ParseEvent(event));
+		medias.setItems(mediaArray);
+		medias.setCellFactory(new Callback<ListView<ImportedMedia>, ListCell<ImportedMedia>>() {
+			@Override
+			public ListCell<ImportedMedia> call(ListView<ImportedMedia> param) {
+				ListCell<ImportedMedia> cell = new ListCell<ImportedMedia>(){
+					@Override
+					public void updateItem(ImportedMedia item, boolean empty){
+						super.updateItem(item, empty);
+						if (item != null){
+							setText(item.nameProperty().get());
+						}
+					}
+				};
+				return cell;
+			}
+		});
 		
-		System.out.println(event.getEventType());
+		if (mediaArray.size() == 1){
+			 currentMedia = mediaArray.get(0);
+		     cursorFrame1.setMax(currentMedia.durationProperty().get());
+		     cursorFrame1.setValue(0);
+		     
+			 currentMedia.positionProperty().bind(currentPosition);
+		}
 		
-		int duration = 0;
-		
-        if (db.hasFiles()) {
-            success = true;
-            String filePath = null;
-            for (File file:db.getFiles()) {
-                filePath = file.getAbsolutePath();
-                System.out.println(filePath);
-                try {
-					duration = Splitter.split(file);
-				} catch (IOException e) {
-					e.printStackTrace();
-				} catch (JCodecException e) {
-					e.printStackTrace();
-				}
-            }	
-        }
-        System.out.println(duration);
-        event.setDropCompleted(success);
-        event.consume();
-		
-	}
-	
-
-	@FXML
-	private void importMediaDone(DragEvent event){
-		
-		System.out.println("done");
-	}
-	
-
-	@FXML
-	private void importMediaDetec(DragEvent event){
-
-		System.out.println("detect");
-	}
-	
-	@FXML
-	private void importMediaEnter(DragEvent event){
-
-		System.out.println("enter");;
-	}
-	
-	@FXML
-	private void importMediaExit(DragEvent event){
-
-		System.out.println("exit");
 	}
 	
 	@FXML
@@ -268,8 +275,25 @@ public class VCGUIController implements Initializable{
 		
 	}
 	
-	
-
+	@FXML
+	private void mediaSelect(){
+		currentMedia.positionProperty().unbind();
+		currentMedia = medias.getSelectionModel().getSelectedItem();
+		if (currentMedia != null){
+			cursorFrame1.setMax(currentMedia.durationProperty().get());
+			cursorFrame1.setValue(currentMedia.getPosition());
+			
+			view_0.imageProperty().unbind();
+			view_0.setImage(new Image("file://" + currentMedia.mediaPngPathProperty().get().toString()
+                                                + File.separator
+                                                + String.format("frame_%08d.png", cursorFrame1.valueProperty().intValue())));
+			view_0.imageProperty().bind(imgFrame);
+			
+			currentMedia.positionProperty().bind(currentPosition);
+			
+			
+		}
+	}
 
 	public Label getFrameNumber() {
 		return frameNumber;
@@ -296,8 +320,7 @@ public class VCGUIController implements Initializable{
 		
 		initBinds();
 		initModels();
+		initPrefs();
 		
 	}
-
-	
 }

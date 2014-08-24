@@ -14,6 +14,8 @@ public class Main extends Application implements javafx.fxml.Initializable {
 
 	@Override
 	public void start(Stage primaryStage) {
+		
+		
 
 		try {
 			BorderPane root = FXMLLoader.load(getClass().getResource("VCGUI.fxml"));

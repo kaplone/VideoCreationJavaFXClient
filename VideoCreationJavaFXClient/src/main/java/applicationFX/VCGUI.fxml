@@ -12,7 +12,7 @@
       <HBox prefHeight="506.0" prefWidth="547.0" BorderPane.alignment="CENTER">
          <children>
             <Separator orientation="VERTICAL" prefHeight="418.0" prefWidth="0.0" /><VBox fx:id="box1" prefHeight="514.0" prefWidth="538.0">
-<children><ListView fx:id="medias" blendMode="BLUE" onDragDetected="#importMediaDetec" onDragDone="#importMediaDone" onDragDropped="#importMediaDrop" onDragEntered="#importMediaEnter" onDragExited="#importMediaExit" onDragOver="#importMediaOver" onMouseDragEntered="#importMediaRequest" onMouseDragReleased="#importMedia" prefHeight="193.0" prefWidth="202.0" />
+<children><ListView id="mediaList" fx:id="medias" onDragDropped="#importMediaDrop" onDragOver="#importMediaOver" onKeyTyped="#mediaSelect" onMouseClicked="#mediaSelect" prefHeight="193.0" prefWidth="202.0" stylesheets="@application.css" />
 </children></VBox>
          </children>
       </HBox>

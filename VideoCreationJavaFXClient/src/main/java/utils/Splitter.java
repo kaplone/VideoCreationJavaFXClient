@@ -1,4 +1,4 @@
-package applicationFX;
+package utils;
 
 import java.io.File;
 import java.io.IOException;
@@ -13,7 +13,7 @@ import org.jcodec.common.NIOUtils;
 public class Splitter {
 
 
-	public static int split(File media) throws IOException, JCodecException {
+	public static int split(File media, File outDir) throws IOException, JCodecException {
 		
 		FileChannelWrapper ch = null;
 		try {
@@ -23,7 +23,7 @@ public class Splitter {
 		    while (true) {
 		    	try {
 				  ImageIO.write(frameGrab.getFrame(), "png",
-				    new File(System.getProperty("user.home"), String.format("Bureau/img/frame_%08d.png", i)));
+				    new File(outDir, String.format("frame_%08d.png", i)));
 		    	}
 		    	catch (NullPointerException n){
 		    		break;
