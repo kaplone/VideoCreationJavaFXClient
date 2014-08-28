@@ -1,5 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
+<?import javafx.scene.*?>
 <?import java.lang.*?>
 <?import javafx.geometry.*?>
 <?import javafx.scene.control.*?>
@@ -7,12 +8,18 @@
 <?import javafx.scene.layout.*?>
 <?import javafx.scene.media.*?>
 
+
 <BorderPane fx:id="root" prefHeight="656.0" prefWidth="1015.0" stylesheets="@application.css" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1" fx:controller="applicationFX.VCGUIController">
    <right>
       <HBox prefHeight="506.0" prefWidth="547.0" BorderPane.alignment="CENTER">
          <children>
             <Separator orientation="VERTICAL" prefHeight="418.0" prefWidth="0.0" /><VBox fx:id="box1" prefHeight="514.0" prefWidth="538.0">
 <children><ListView id="mediaList" fx:id="medias" onDragDropped="#importMediaDrop" onDragOver="#importMediaOver" onKeyTyped="#mediaSelect" onMouseClicked="#mediaSelect" prefHeight="193.0" prefWidth="202.0" stylesheets="@application.css" />
+                  <HBox prefHeight="100.0" prefWidth="200.0">
+                     <children>
+                        <Button mnemonicParsing="false" text="delete media" />
+                     </children>
+                  </HBox>
 </children></VBox>
          </children>
       </HBox>
@@ -20,26 +27,45 @@
    <bottom>
       <VBox prefHeight="91.0" prefWidth="1015.0" BorderPane.alignment="CENTER">
          <children>
-            <Slider fx:id="cursorFrame1" blockIncrement="1.0" max="1000.0" prefHeight="48.0" prefWidth="1015.0" showTickLabels="true" showTickMarks="true" value="15.0">
+            <Slider fx:id="cursorFrame1" blockIncrement="1.0" max="1000.0" prefHeight="57.0" prefWidth="1015.0" showTickLabels="true" showTickMarks="true" value="15.0">
                <VBox.margin>
                   <Insets bottom="10.0" />
                </VBox.margin>
+               <padding>
+                  <Insets top="40.0" />
+               </padding>
             </Slider>
          </children>
+         <BorderPane.margin>
+            <Insets />
+         </BorderPane.margin>
       </VBox>
    </bottom>
-<left><Pane fx:id="pane_1" prefHeight="418.0" prefWidth="421.0" BorderPane.alignment="CENTER">
-<children><VBox fx:id="view_2" prefHeight="418.0" prefWidth="490.0">
+<left><Pane fx:id="pane_1" prefHeight="514.0" prefWidth="446.0" BorderPane.alignment="CENTER">
+<children><VBox fx:id="view_2" prefHeight="519.0" prefWidth="426.0">
 <children>
-<ImageView fx:id="view_0" fitHeight="446.0" fitWidth="262.0" onMouseClicked="#OnMouseClickedFrame" onMouseEntered="#OnMouseOverFrame" onMouseMoved="#OnMouseMovedOverFrame" pickOnBounds="true" preserveRatio="true">
-<image>
-<Image url="@../../../../images/frames_WakeApp/image2_00014.png" />
-</image>
-<VBox.margin>
-<Insets bottom="10.0" left="75.0" />
-</VBox.margin>
-</ImageView>
-<HBox fx:id="view_1" minWidth="-Infinity" prefHeight="100.0" prefWidth="400.0">
+                  <HBox alignment="TOP_CENTER">
+                     <children>
+                        <Button fx:id="rotate_left" mnemonicParsing="false" onMouseClicked="#onLeftRotation" text="90° Left" />
+                        <Button fx:id="rotate_right" mnemonicParsing="false" onMouseClicked="#onRightRotation" text="90° Right" />
+                     </children>
+                     <VBox.margin>
+                        <Insets bottom="5.0" top="5.0" />
+                     </VBox.margin>
+                  </HBox>
+                  <VBox alignment="CENTER" maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308" minHeight="-Infinity" minWidth="-Infinity" prefHeight="436.0" prefWidth="426.0">
+                     <children>
+      <ImageView fx:id="view_0" cacheHint="SPEED" fitHeight="426.0" fitWidth="426.0" nodeOrientation="INHERIT" onMouseClicked="#OnMouseClickedFrame" onMouseEntered="#OnMouseOverFrame" onMouseMoved="#OnMouseMovedOverFrame" pickOnBounds="true" preserveRatio="true" smooth="false">
+                           <VBox.margin>
+                              <Insets top="10.0" />
+                           </VBox.margin>
+                           <cursor>
+                              <Cursor fx:constant="DEFAULT" />
+                           </cursor>
+                        </ImageView>
+                     </children>
+                  </VBox>
+<HBox fx:id="view_1" alignment="BOTTOM_CENTER" minWidth="-Infinity" prefHeight="46.0" prefWidth="426.0">
 <children>
 <Button mnemonicParsing="false" text="Del action">
 <HBox.margin>
@@ -48,11 +74,32 @@
 </Button>
 <Button fx:id="play" minHeight="-Infinity" minWidth="-Infinity" mnemonicParsing="false" onAction="#OnPlayClicked" prefWidth="80.0" text="Play" />
 <Button fx:id="stop" minWidth="-Infinity" mnemonicParsing="false" onAction="#OnStopClicked" prefWidth="80.0" text="Stop" />
-<Label fx:id="frameNumber" text="000">
-<padding>
-<Insets left="20.0" right="20.0" />
-</padding>
-</Label>
+                        <VBox prefHeight="46.0" prefWidth="187.0">
+                           <children>
+                              <HBox prefHeight="31.0" prefWidth="177.0">
+                                 <children>
+                                    <Label prefHeight="15.0" prefWidth="85.0" text="Frame N° :" />
+            <Label fx:id="frameNumber" prefHeight="15.0" prefWidth="83.0" text="000">
+            <padding>
+            <Insets left="20.0" right="20.0" />
+            </padding>
+            </Label>
+                                 </children>
+                                 <VBox.margin>
+                                    <Insets />
+                                 </VBox.margin>
+                              </HBox>
+                              <HBox prefHeight="100.0" prefWidth="200.0">
+                                 <children>
+                                    <Label text="SMPTE : " />
+                                    <Label text="00:00:00.000" />
+                                 </children>
+                              </HBox>
+                           </children>
+                           <HBox.margin>
+                              <Insets left="10.0" />
+                           </HBox.margin>
+                        </VBox>
 </children>
 <VBox.margin>
 <Insets bottom="10.0" top="10.0" />
@@ -69,10 +116,11 @@
                <menus>
                   <Menu mnemonicParsing="false" text="File">
                      <items>
-                        <MenuItem fx:id="menuOpenProject" mnemonicParsing="false" onAction="#OnMenuOpenProject" text="Open project" />
-                        <MenuItem mnemonicParsing="false" text="Save project" />
-                        <MenuItem mnemonicParsing="false" text="Save project as" />
-                        <MenuItem mnemonicParsing="false" text="property" />
+                        <MenuItem fx:id="newProjectMenuItem" mnemonicParsing="false" onAction="#OnNewProjectMenuItem" text="New project" />
+                        <MenuItem fx:id="menuOpenProject" mnemonicParsing="false" onAction="#OnOpenProjectMenuItem" text="Open project" />
+                        <MenuItem fx:id="saveProjectMenuItem" mnemonicParsing="false" onAction="#OnSaveProjectMenuItem" text="Save project" />
+                        <MenuItem fx:id="saveProjectAsMenuItem" mnemonicParsing="false" onAction="#OnSaveAsProjectMenuItem" text="Save project as" />
+                        <MenuItem fx:id="projectPropertyMenuItem" mnemonicParsing="false" text="property" />
                         <MenuItem mnemonicParsing="false" text="Close" />
                      </items>
                   </Menu>
