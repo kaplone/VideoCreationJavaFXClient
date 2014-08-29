@@ -1,5 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
+<?import javafx.scene.effect.*?>
+<?import javafx.scene.shape.*?>
 <?import javafx.scene.*?>
 <?import java.lang.*?>
 <?import javafx.geometry.*?>
@@ -7,7 +9,6 @@
 <?import javafx.scene.image.*?>
 <?import javafx.scene.layout.*?>
 <?import javafx.scene.media.*?>
-
 
 <BorderPane fx:id="root" prefHeight="656.0" prefWidth="1015.0" stylesheets="@application.css" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1" fx:controller="applicationFX.VCGUIController">
    <right>
@@ -17,7 +18,14 @@
 <children><ListView id="mediaList" fx:id="medias" onDragDropped="#importMediaDrop" onDragOver="#importMediaOver" onKeyTyped="#mediaSelect" onMouseClicked="#mediaSelect" prefHeight="193.0" prefWidth="202.0" stylesheets="@application.css" />
                   <HBox prefHeight="100.0" prefWidth="200.0">
                      <children>
-                        <Button mnemonicParsing="false" text="delete media" />
+                        <Button mnemonicParsing="false" text="Delete media" />
+                        <Button mnemonicParsing="false" text="Delete media and temp files" />
+                     </children>
+                  </HBox>
+                  <HBox prefHeight="100.0" prefWidth="200.0">
+                     <children>
+                        <Button mnemonicParsing="false" text="Rename media" />
+                        <Button mnemonicParsing="false" text="Duplicate entry" />
                      </children>
                   </HBox>
 </children></VBox>
@@ -48,21 +56,35 @@
                      <children>
                         <Button fx:id="rotate_left" mnemonicParsing="false" onMouseClicked="#onLeftRotation" text="90° Left" />
                         <Button fx:id="rotate_right" mnemonicParsing="false" onMouseClicked="#onRightRotation" text="90° Right" />
+                        <Button mnemonicParsing="false" text="[ In ">
+                           <HBox.margin>
+                              <Insets left="50.0" />
+                           </HBox.margin>
+                        </Button>
+                        <Button alignment="CENTER_RIGHT" mnemonicParsing="false" text="Out ]" />
                      </children>
                      <VBox.margin>
                         <Insets bottom="5.0" top="5.0" />
                      </VBox.margin>
                   </HBox>
-                  <VBox alignment="CENTER" maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308" minHeight="-Infinity" minWidth="-Infinity" prefHeight="436.0" prefWidth="426.0">
+                  <VBox alignment="CENTER">
                      <children>
-      <ImageView fx:id="view_0" cacheHint="SPEED" fitHeight="426.0" fitWidth="426.0" nodeOrientation="INHERIT" onMouseClicked="#OnMouseClickedFrame" onMouseEntered="#OnMouseOverFrame" onMouseMoved="#OnMouseMovedOverFrame" pickOnBounds="true" preserveRatio="true" smooth="false">
+                        <Pane fx:id="paneView" minHeight="-Infinity" minWidth="-Infinity" onMouseClicked="#OnMouseClickedFrame" onMouseEntered="#OnMouseOverFrame" prefHeight="426.0" prefWidth="426.0">
                            <VBox.margin>
-                              <Insets top="10.0" />
+                              <Insets />
                            </VBox.margin>
-                           <cursor>
-                              <Cursor fx:constant="DEFAULT" />
-                           </cursor>
-                        </ImageView>
+                           <children>
+                              <VBox fx:id="vboxView" alignment="CENTER" prefHeight="426.0" prefWidth="426.0">
+                                 <children>
+                              <ImageView fx:id="view_0" cacheHint="SPEED" fitHeight="426.0" fitWidth="426.0" nodeOrientation="INHERIT" pickOnBounds="true" preserveRatio="true" smooth="false">
+                                       <cursor>
+                                          <Cursor fx:constant="DEFAULT" />
+                                       </cursor>
+                                    </ImageView>
+                                 </children>
+                              </VBox>
+                           </children>
+                        </Pane>
                      </children>
                   </VBox>
 <HBox fx:id="view_1" alignment="BOTTOM_CENTER" minWidth="-Infinity" prefHeight="46.0" prefWidth="426.0">

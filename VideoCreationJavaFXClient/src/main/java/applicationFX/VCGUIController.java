@@ -5,16 +5,11 @@ import java.io.FileNotFoundException;
 import java.io.FileOutputStream;
 import java.io.IOException;
 import java.net.URL;
-import java.util.Iterator;
 import java.util.ResourceBundle;
-
-import org.jcodec.api.JCodecException;
 
 import com.fasterxml.jackson.core.JsonFactory;
 import com.fasterxml.jackson.core.JsonGenerator;
-import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.core.util.DefaultPrettyPrinter;
-import com.fasterxml.jackson.databind.JsonNode;
 import com.fasterxml.jackson.databind.ObjectMapper;
 
 import utils.ImportedMedia;
@@ -33,7 +28,6 @@ import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
-import javafx.scene.control.ListCell;
 import javafx.scene.control.ListView;
 import javafx.scene.control.Slider;
 import javafx.scene.image.Image;
@@ -43,12 +37,13 @@ import javafx.scene.input.Dragboard;
 import javafx.scene.input.MouseEvent;
 import javafx.scene.input.TransferMode;
 import javafx.scene.layout.BorderPane;
+import javafx.scene.layout.Pane;
 import javafx.scene.layout.VBox;
 import javafx.scene.paint.Color;
+import javafx.scene.shape.Circle;
 import javafx.scene.shape.Line;
 import javafx.stage.FileChooser;
 import javafx.stage.Stage;
-import javafx.util.Callback;
 
 
 public class VCGUIController implements Initializable{
@@ -56,6 +51,12 @@ public class VCGUIController implements Initializable{
 	// ------ container -----
 	@FXML
 	 private BorderPane root;
+	
+	@FXML
+	private Pane pane_1;
+	
+	@FXML
+	private Pane paneView;
 	    
 	
 	// ------ timeline ------
@@ -87,6 +88,7 @@ public class VCGUIController implements Initializable{
 	private ObservableList<ImportedMedia> mediaArray = FXCollections.observableArrayList();
 	
 	private ImportedMedia currentMedia;
+
 	
 	
 	@FXML
@@ -99,6 +101,8 @@ public class VCGUIController implements Initializable{
 	final private Line verticale = new Line();
 	final private Line horizontale = new Line();
 	final private Line [] lines = new Line [] {verticale, horizontale};
+	
+	final private Circle touchCircle = new Circle();
 
 	final private ViewService viewService = new ViewService(this);
 	
@@ -228,21 +232,29 @@ public class VCGUIController implements Initializable{
 	@FXML
 	 protected void OnMouseOverFrame() {
 		
-		double offsetX = view_0.getLayoutX();
-		double offsetY = view_0.getLayoutY();
-		
-		horizontale.setStartX(offsetX);
-		horizontale.setEndX(250 + offsetX);
-		horizontale.setStrokeWidth(1);
-		horizontale.setStroke(new Color(0,0,0,0.5));
-		
-		verticale.setStartY(53 + offsetY);
-        verticale.setEndY(53 + 446 + offsetY);
-        verticale.setStrokeWidth(1);
-        verticale.setStroke(new Color(0,0,0,0.5));
+//		double offsetX = view_0.getLayoutX();
+//		double offsetY = view_0.getLayoutY();
+//		
+//		horizontale.setStartX(offsetX);
+//		horizontale.setEndX(426 + offsetX);
+//		horizontale.setStrokeWidth(1);
+//		horizontale.setStroke(new Color(0,0,0,0.5));
+//
+//		verticale.setStartY(offsetY);
+//        verticale.setEndY(426 + offsetY);
+//        verticale.setStrokeWidth(1);
+//        verticale.setStroke(new Color(0,0,0,0.5));
+        
+		touchCircle.setVisible(false);
+        touchCircle.setRadius(50);
+        touchCircle.setStrokeWidth(5);
+        touchCircle.setStroke(new Color(0.95,0.05,0.05,0.8));
+        touchCircle.setFill(new Color(0.95,0.05,0.05,0.0));
+        
 		
 		if (! added){
-		     root.getChildren().addAll(lines);
+		     //paneView.getChildren().addAll(lines);
+		     paneView.getChildren().add(touchCircle);
 		     added = true;
 		}
 
@@ -250,6 +262,11 @@ public class VCGUIController implements Initializable{
 	
 	@FXML
 	 protected void OnMouseClickedFrame(MouseEvent event) {
+		System.out.println("" +  event.getX()+ "   " +  event.getY());
+		touchCircle.setVisible(true);
+		touchCircle.setCenterX(event.getX());
+        touchCircle.setCenterY(event.getY());
+		
 	
 	}
 	

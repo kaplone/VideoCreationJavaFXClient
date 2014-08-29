@@ -21,14 +21,15 @@ import javafx.beans.property.StringProperty;
 
 public class ImportedMedia extends Observable {
 	
-	final private ObjectMapper mapper = new ObjectMapper();
+	private final ObjectMapper mapper = new ObjectMapper();
 	
-	private StringProperty name = new SimpleStringProperty();
-	private ObjectProperty<File> original = new SimpleObjectProperty<File>();
-	private ObjectProperty<File> mediaPngPath = new SimpleObjectProperty<File>();
-	private IntegerProperty duration = new SimpleIntegerProperty();
-	private IntegerProperty position = new SimpleIntegerProperty();
-	private IntegerProperty rotation = new SimpleIntegerProperty();
+	private final StringProperty name = new SimpleStringProperty();
+	private final ObjectProperty<File> original = new SimpleObjectProperty<File>();
+	private final ObjectProperty<File> mediaPngPath = new SimpleObjectProperty<File>();
+	private final IntegerProperty duration = new SimpleIntegerProperty();
+	private final IntegerProperty position = new SimpleIntegerProperty();
+	private final IntegerProperty rotation = new SimpleIntegerProperty();
+	private final ObjectProperty<TimeLine> timeline = new SimpleObjectProperty<TimeLine>();
 	
 	public ImportedMedia() {
 	}
@@ -53,6 +54,7 @@ public ImportedMedia(JsonNode jsonSave) throws IOException, JCodecException{
 		this.duration.set(jsonSave.get("duration").asInt());
 		this.position.set(jsonSave.get("position").asInt());
 		this.rotation.set(jsonSave.get("rotation").asInt());
+		this.timeline.set(new TimeLine(jsonSave.get("timeline")));
 		
 	}
 	
