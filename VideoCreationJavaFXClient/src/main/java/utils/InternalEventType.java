@@ -1,0 +1,14 @@
+package utils;
+
+public enum InternalEventType {
+	SINGLE_TAP,
+	DOUBLE_TAP,
+	SWIPE_UP,
+	SWIPE_DOWN,
+	SWIPE_RIGHT,
+	SWIPE_LEFT,
+	FLICK_UP,
+	FLICK_DOWN,
+	FLICK_RIGHT,
+	FLICK_LEFT;
+}
