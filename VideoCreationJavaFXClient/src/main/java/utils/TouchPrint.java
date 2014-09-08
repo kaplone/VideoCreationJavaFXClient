@@ -50,19 +50,19 @@ public class TouchPrint {
 		this.touchPrint.get().setEffect(blur);
 	}
 	
-	public double getTouchedFrameX() {
-		return touchedFrameX.get();
-	}
-	public double getTouchedFrameY() {
-		return touchedFrameY.get();
-	}
-	
-	public void setTouchedFrameX(double x) {
-		touchedFrameX.set(x);
-	}
-	public void setTouchedFrameY(double y) {
-		touchedFrameY.set(y);
-	}
+//	public double getTouchedFrameX() {
+//		return touchedFrameX.get();
+//	}
+//	public double getTouchedFrameY() {
+//		return touchedFrameY.get();
+//	}
+//	
+//	public void setTouchedFrameX(double x) {
+//		touchedFrameX.set(x);
+//	}
+//	public void setTouchedFrameY(double y) {
+//		touchedFrameY.set(y);
+//	}
 	
 
 }
