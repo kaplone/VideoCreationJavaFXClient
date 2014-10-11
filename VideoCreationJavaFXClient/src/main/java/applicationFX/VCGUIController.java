@@ -18,8 +18,10 @@ import utils.ListCellUtils;
 import utils.ParseMedias;
 import javafx.beans.binding.ObjectBinding;
 import javafx.beans.binding.StringBinding;
+import javafx.beans.property.BooleanProperty;
 import javafx.beans.property.DoubleProperty;
 import javafx.beans.property.ObjectProperty;
+import javafx.beans.property.SimpleBooleanProperty;
 import javafx.beans.property.SimpleDoubleProperty;
 import javafx.beans.property.SimpleObjectProperty;
 import javafx.collections.FXCollections;
@@ -176,6 +178,8 @@ public class VCGUIController implements Initializable{
 			@Override
 			protected Image computeValue() {
 				if (currentMedia != null){
+
+					
 					return new Image("file://" + currentMedia.mediaPngPathProperty().get().toString()
 							                   + File.separator
 							                   +  String.format("frame_%08d.png", cursorFrame1.valueProperty().intValue()));
@@ -262,7 +266,30 @@ public class VCGUIController implements Initializable{
 	
 	@FXML
 	 protected void OnMouseClickedFrame(MouseEvent event) {
-		System.out.println("" +  event.getX()+ "   " +  event.getY());
+		
+		System.out.println(view_0.getLayoutX());
+		System.out.println(view_0.getLayoutY());
+		System.out.println(view_0.getX());
+		System.out.println(view_0.getY());
+		
+		if (currentMedia.getLandscape()){
+			
+			if (currentMedia.getRotation() % 180 == 0){
+				System.out.println("horizontal" + currentMedia.getRotation() + " " +  event.getX()+ "   " + ( event.getY()  - view_0.getLayoutY()));
+			}
+			else{
+			   System.out.println("vertical " + currentMedia.getRotation() + " "+  (event.getX() - view_0.getLayoutY())+ "   " +  event.getY());
+			}
+		}
+		else {
+			if (currentMedia.getRotation() % 180 != 0){
+				System.out.println("vertical " + currentMedia.getRotation() + " "+  event.getX()+ "   " +  (event.getY() - view_0.getLayoutX()));
+			}
+			else{
+				System.out.println( "horizontal" + currentMedia.getRotation() + " " +  (event.getX() - view_0.getLayoutX())+ "   " + event.getY());
+			   
+			}
+		}
 		touchCircle.setVisible(true);
 		touchCircle.setCenterX(event.getX());
         touchCircle.setCenterY(event.getY());
@@ -323,9 +350,9 @@ public class VCGUIController implements Initializable{
 			
 			view_0.imageProperty().bind(imgFrame);
 			
-			currentMedia.positionProperty().bind(currentPosition);
-			
-			
+			currentMedia.positionProperty().bind(currentPosition);	
+		}
+		if (currentMedia.getRotation() % 180 != 0){
 		}
 	}
 	
@@ -412,6 +439,8 @@ public class VCGUIController implements Initializable{
 	            jsonGenerator.writeNumberField("rotation", mediaToParse.getRotation());
 	            jsonGenerator.writeNumberField("position", mediaToParse.getPosition());
 	            jsonGenerator.writeNumberField("duration", mediaToParse.getDuration());
+	            jsonGenerator.writeNumberField("cutIn", mediaToParse.getDuration());
+	            jsonGenerator.writeNumberField("CutOut", mediaToParse.getDuration());
 	            jsonGenerator.writeStringField("name", mediaToParse.getName());
 	            jsonGenerator.writeStringField("original", mediaToParse.getOriginal().toString());
 	            jsonGenerator.writeStringField("mediaPngPath", mediaToParse.getMediaPngPath().toString());

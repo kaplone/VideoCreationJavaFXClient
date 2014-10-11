@@ -51,17 +51,17 @@ public class TouchPrint {
 	}
 	
 	public double getTouchedFrameX() {
-		return touchedFrameX.get();
+		return touchPrint.get().getCenterX();
 	}
 	public double getTouchedFrameY() {
-		return touchedFrameY.get();
+		return touchPrint.get().getCenterY();
 	}
 	
 	public void setTouchedFrameX(double x) {
-		touchedFrameX.set(x);
+		touchPrint.get().setCenterX(x);
 	}
 	public void setTouchedFrameY(double y) {
-		touchedFrameY.set(y);
+		touchPrint.get().setCenterX(y);
 	}
 	
 

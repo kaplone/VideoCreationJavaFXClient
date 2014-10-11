@@ -3,14 +3,22 @@ package utils;
 import java.io.File;
 import java.io.IOException;
 
+import javafx.beans.property.DoubleProperty;
+import javafx.beans.property.SimpleDoubleProperty;
+import javafx.scene.image.Image;
+
 import javax.imageio.ImageIO;
 
 import org.jcodec.api.FrameGrab;
 import org.jcodec.api.JCodecException;
+import org.jcodec.codecs.h264.io.model.Frame;
 import org.jcodec.common.FileChannelWrapper;
 import org.jcodec.common.NIOUtils;
 
 public class Splitter {
+	
+	private static final DoubleProperty width = new SimpleDoubleProperty();
+	private static final DoubleProperty height = new SimpleDoubleProperty();
 
 
 	public static int split(File media, File outDir) throws IOException, JCodecException {
@@ -36,8 +44,21 @@ public class Splitter {
 
 		} finally {
 		    NIOUtils.closeQuietly(ch);
+		    width.set(new Image(outDir + String.format("frame_%08d.png", 0)).getWidth());
+		    height.set(new Image(outDir + String.format("frame_%08d.png", 0)).getHeight());
 		}
-		
 	}
-
+	
+	public static double getWidth(){
+		return width.get();
+	}
+	public static double getHeight(){
+		return height.get();
+	}
+	public static DoubleProperty widthProperty(){
+		return width;
+	}
+	public static DoubleProperty heightProperty(){
+		return height;
+	}
 }
