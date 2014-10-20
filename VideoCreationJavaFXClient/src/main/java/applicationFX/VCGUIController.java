@@ -340,6 +340,11 @@ public class VCGUIController implements Initializable{
 		
 		mediaArray.addAll(ParseMedias.ParseEvent(event));
 		ListCellUtils.populateMediasCells(mediaArray, medias);
+		if (medias.getSelectionModel().isEmpty()){
+			medias.getSelectionModel().select(0);
+		}
+		currentMedia = medias.getSelectionModel().getSelectedItem();
+		currentMedia.positionProperty().bind(currentPosition);
 		
 	}
 	

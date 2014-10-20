@@ -1,16 +1,20 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
+<<<<<<< HEAD
 <?import javafx.scene.text.*?>
 <?import javafx.scene.effect.*?>
 <?import javafx.scene.shape.*?>
 <?import javafx.scene.*?>
+=======
+>>>>>>> branch 'master' of https://github.com/kaplone/VideoCreationJavaFXClient.git
 <?import java.lang.*?>
 <?import javafx.geometry.*?>
+<?import javafx.scene.*?>
 <?import javafx.scene.control.*?>
 <?import javafx.scene.image.*?>
 <?import javafx.scene.layout.*?>
-<?import javafx.scene.media.*?>
 
+<<<<<<< HEAD
 <VBox prefHeight="602.0" prefWidth="1038.0" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1" fx:controller="applicationFX.VCGUIController">
    <children>
       <MenuBar maxWidth="1.7976931348623157E308" prefHeight="24.0" prefWidth="1038.0">
@@ -54,6 +58,124 @@
                   <BorderPane fx:id="root" prefWidth="1015.0" stylesheets="@application.css">
                      <bottom>
                         <VBox prefHeight="89.0" prefWidth="1016.0" BorderPane.alignment="CENTER">
+=======
+<BorderPane fx:id="root" prefHeight="656.0" prefWidth="1015.0" stylesheets="@application.css" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1" fx:controller="applicationFX.VCGUIController">
+   <right>
+      <HBox prefHeight="506.0" prefWidth="547.0" BorderPane.alignment="CENTER">
+         <children>
+            <Separator orientation="VERTICAL" prefHeight="418.0" prefWidth="0.0" /><VBox fx:id="box1" prefHeight="514.0" prefWidth="538.0">
+<children><ListView id="mediaList" fx:id="medias" onDragDropped="#importMediaDrop" onDragOver="#importMediaOver" onKeyTyped="#mediaSelect" onMouseClicked="#mediaSelect" prefHeight="193.0" prefWidth="202.0" stylesheets="@application.css" /><GridPane>
+  <columnConstraints>
+    <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
+    <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
+  </columnConstraints>
+  <rowConstraints>
+    <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
+    <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
+  </rowConstraints>
+<children>
+                        <Button alignment="TOP_CENTER" contentDisplay="CENTER" mnemonicParsing="false" text="Delete media" />
+                        <Button mnemonicParsing="false" text="Delete media and temp files" GridPane.columnIndex="1" />
+                        <Button mnemonicParsing="false" text="Rename media" GridPane.rowIndex="1" />
+                        <Button mnemonicParsing="false" text="Duplicate entry" GridPane.columnIndex="1" GridPane.rowIndex="1" />
+</children>
+</GridPane><Separator prefWidth="200.0">
+<VBox.margin>
+<Insets bottom="10.0" top="10.0" />
+</VBox.margin></Separator><GridPane>
+  <columnConstraints>
+    <ColumnConstraints hgrow="SOMETIMES" maxWidth="374.0" minWidth="10.0" prefWidth="340.0" />
+    <ColumnConstraints hgrow="SOMETIMES" maxWidth="263.0" minWidth="10.0" prefWidth="198.0" />
+  </columnConstraints>
+  <rowConstraints>
+    <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
+    <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
+    <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
+  </rowConstraints>
+<children><Button mnemonicParsing="false" text="Previous tap" /><Button mnemonicParsing="false" text="Next tap" GridPane.columnIndex="1" /><HBox prefHeight="100.0" prefWidth="200.0" GridPane.rowIndex="2">
+<children><ChoiceBox prefWidth="150.0" /><Button mnemonicParsing="false" text="Add tap/Set type " />
+</children></HBox><Button mnemonicParsing="false" text="Delete tap" GridPane.columnIndex="1" GridPane.rowIndex="2" />
+</children>
+</GridPane>
+</children></VBox>
+         </children>
+      </HBox>
+   </right>
+   <bottom>
+      <VBox prefHeight="91.0" prefWidth="1015.0" BorderPane.alignment="CENTER">
+         <children><HBox prefHeight="100.0" prefWidth="200.0">
+<children><HBox alignment="BOTTOM_CENTER" minWidth="-Infinity" prefHeight="46.0" prefWidth="426.0">
+<children>
+<Button minHeight="-Infinity" minWidth="-Infinity" mnemonicParsing="false" onAction="#OnPlayClicked" prefWidth="80.0" text="Play" />
+<Button minWidth="-Infinity" mnemonicParsing="false" onAction="#OnStopClicked" prefWidth="80.0" text="Stop" />
+<VBox prefHeight="46.0" prefWidth="187.0">
+<children>
+<HBox prefHeight="31.0" prefWidth="177.0">
+<children>
+<Label prefHeight="15.0" prefWidth="85.0" text="Frame N° :" />
+<Label prefHeight="15.0" prefWidth="83.0" text="000">
+<padding>
+<Insets left="20.0" right="20.0" />
+</padding>
+</Label>
+</children>
+<VBox.margin>
+<Insets />
+</VBox.margin>
+</HBox>
+<HBox prefHeight="100.0" prefWidth="200.0">
+<children>
+<Label text="SMPTE : " />
+<Label text="00:00:00.000" />
+</children>
+</HBox>
+</children>
+<HBox.margin>
+<Insets left="10.0" />
+</HBox.margin>
+</VBox>
+</children>
+</HBox>
+</children></HBox>
+            <Slider fx:id="cursorFrame1" blockIncrement="1.0" max="1000.0" prefHeight="57.0" prefWidth="1015.0" showTickLabels="true" showTickMarks="true" value="15.0">
+               <VBox.margin>
+                  <Insets bottom="10.0" />
+               </VBox.margin>
+               <padding>
+                  <Insets top="40.0" />
+               </padding>
+            </Slider>
+         </children>
+         <BorderPane.margin>
+            <Insets />
+         </BorderPane.margin>
+      </VBox>
+   </bottom>
+<left><Pane fx:id="pane_1" prefHeight="514.0" prefWidth="446.0" BorderPane.alignment="CENTER">
+<children><VBox fx:id="view_2" prefHeight="519.0" prefWidth="426.0">
+<children>
+                  <HBox alignment="TOP_CENTER">
+                     <children>
+                        <Button fx:id="rotate_left" mnemonicParsing="false" onMouseClicked="#onLeftRotation" text="90° Left" />
+                        <Button fx:id="rotate_right" mnemonicParsing="false" onMouseClicked="#onRightRotation" text="90° Right" />
+                        <Button mnemonicParsing="false" text="[ In ">
+                           <HBox.margin>
+                              <Insets left="50.0" />
+                           </HBox.margin>
+                        </Button>
+                        <Button alignment="CENTER_RIGHT" mnemonicParsing="false" text="Out ]" />
+                     </children>
+                     <VBox.margin>
+                        <Insets bottom="5.0" top="5.0" />
+                     </VBox.margin>
+                  </HBox>
+                  <VBox alignment="CENTER">
+                     <children>
+                        <Pane fx:id="paneView" minHeight="-Infinity" minWidth="-Infinity" onMouseClicked="#OnMouseClickedFrame" onMouseEntered="#OnMouseOverFrame" prefHeight="426.0" prefWidth="426.0">
+                           <VBox.margin>
+                              <Insets />
+                           </VBox.margin>
+>>>>>>> branch 'master' of https://github.com/kaplone/VideoCreationJavaFXClient.git
                            <children>
                               <AnchorPane fx:id="anchorPane1" prefHeight="200.0" prefWidth="200.0">
                                  <children>
@@ -156,6 +278,7 @@
                                  </children>
                               </VBox>
                            </children>
+<<<<<<< HEAD
                         </HBox>
                      </right>
                      <left>
@@ -226,4 +349,10 @@
          </panes>
       </Accordion>
    </children>
+=======
+                        </Pane>
+                     </children>
+                  </VBox>
+</children>
+>>>>>>> branch 'master' of https://github.com/kaplone/VideoCreationJavaFXClient.git
 </VBox>

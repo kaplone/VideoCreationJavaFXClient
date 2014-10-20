@@ -50,6 +50,7 @@ public class TouchPrint {
 		this.touchPrint.get().setEffect(blur);
 	}
 	
+<<<<<<< HEAD
 	public double getTouchedFrameX() {
 		return touchPrint.get().getCenterX();
 	}
@@ -63,6 +64,21 @@ public class TouchPrint {
 	public void setTouchedFrameY(double y) {
 		touchPrint.get().setCenterX(y);
 	}
+=======
+//	public double getTouchedFrameX() {
+//		return touchedFrameX.get();
+//	}
+//	public double getTouchedFrameY() {
+//		return touchedFrameY.get();
+//	}
+//	
+//	public void setTouchedFrameX(double x) {
+//		touchedFrameX.set(x);
+//	}
+//	public void setTouchedFrameY(double y) {
+//		touchedFrameY.set(y);
+//	}
+>>>>>>> branch 'master' of https://github.com/kaplone/VideoCreationJavaFXClient.git
 	
 
 }
