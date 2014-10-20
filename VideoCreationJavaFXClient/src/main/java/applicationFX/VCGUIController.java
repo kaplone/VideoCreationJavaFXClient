@@ -7,6 +7,11 @@ import java.io.IOException;
 import java.net.URL;
 import java.util.ResourceBundle;
 
+import com.apptamin.common.ActionType;
+import com.apptamin.model.Marker;
+import com.apptamin.model.MarkerAction;
+import com.apptamin.model.MarkerCut;
+import com.apptamin.model.MarkerMove;
 import com.fasterxml.jackson.core.JsonFactory;
 import com.fasterxml.jackson.core.JsonGenerator;
 import com.fasterxml.jackson.core.util.DefaultPrettyPrinter;
@@ -18,10 +23,8 @@ import utils.ListCellUtils;
 import utils.ParseMedias;
 import javafx.beans.binding.ObjectBinding;
 import javafx.beans.binding.StringBinding;
-import javafx.beans.property.BooleanProperty;
 import javafx.beans.property.DoubleProperty;
 import javafx.beans.property.ObjectProperty;
-import javafx.beans.property.SimpleBooleanProperty;
 import javafx.beans.property.SimpleDoubleProperty;
 import javafx.beans.property.SimpleObjectProperty;
 import javafx.collections.FXCollections;
@@ -29,6 +32,7 @@ import javafx.collections.ObservableList;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
 import javafx.scene.control.Button;
+import javafx.scene.control.ChoiceBox;
 import javafx.scene.control.Label;
 import javafx.scene.control.ListView;
 import javafx.scene.control.Slider;
@@ -38,12 +42,16 @@ import javafx.scene.input.DragEvent;
 import javafx.scene.input.Dragboard;
 import javafx.scene.input.MouseEvent;
 import javafx.scene.input.TransferMode;
+import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.BorderPane;
 import javafx.scene.layout.Pane;
 import javafx.scene.layout.VBox;
 import javafx.scene.paint.Color;
 import javafx.scene.shape.Circle;
 import javafx.scene.shape.Line;
+import javafx.scene.shape.Rectangle;
+import javafx.scene.text.Font;
+import javafx.scene.text.Text;
 import javafx.stage.FileChooser;
 import javafx.stage.Stage;
 
@@ -57,13 +65,28 @@ public class VCGUIController implements Initializable{
 	@FXML
 	private Pane pane_1;
 	
-	@FXML
-	private Pane paneView;
-	    
-	
 	// ------ timeline ------
 	@FXML
 	private Slider cursorFrame1;
+	@FXML
+	private Rectangle selectedZone;
+	@FXML
+	private AnchorPane anchorPane1;
+	@FXML
+	private Button inButton;
+	@FXML
+	private Button outButton;
+	
+	// ------ actions -----
+	@FXML
+	private Button addActionButton;
+	@FXML
+	private ChoiceBox<ActionType> actionTypeList;
+	@FXML
+	private ChoiceBox<PreAction> preActionList;
+	@FXML
+	private ChoiceBox<PostAction> postActionList;
+	
 	
     // ------ player -------
     @FXML
@@ -81,7 +104,6 @@ public class VCGUIController implements Initializable{
 	
 	
 	// ------ menu --------
-
 	
 	// ----- medias -------
 	@FXML
@@ -91,8 +113,6 @@ public class VCGUIController implements Initializable{
 	
 	private ImportedMedia currentMedia;
 
-	
-	
 	@FXML
 	private VBox box1;
 	
@@ -117,6 +137,16 @@ public class VCGUIController implements Initializable{
 	final private ObjectProperty<Image> displayedImage = new SimpleObjectProperty<Image>();
 	
 	final private ObjectMapper mapper = new ObjectMapper();
+	
+	final private Marker markerIn = new MarkerCut("[");
+	final private Marker markerOut = new MarkerCut("]");
+	//final private Marker markerUp = new MarkerMove("↑");
+	//final private Marker markerDown = new MarkerMove("↓");
+	private MarkerAction markerTouch;
+	ObservableList<Integer> touchList = FXCollections.observableArrayList();
+	
+	final private RectangleSelectionOff offIn = new RectangleSelectionOff(0, true);
+	final private RectangleSelectionOff offOut = new RectangleSelectionOff(0, false);
 	
 	// non final vars
 	
@@ -212,7 +242,20 @@ public class VCGUIController implements Initializable{
 
 
 	protected void initModels(){	
-		
+		anchorPane1.getChildren().add(offIn.getZone());
+		anchorPane1.getChildren().add(offOut.getZone());	
+	}
+	
+	protected void initChoices(){
+		ObservableList<ActionType> actions= FXCollections.observableArrayList(ActionType.values());
+		actionTypeList.setItems(actions);
+		actionTypeList.getSelectionModel().select(0);
+		ObservableList<PreAction> preActions= FXCollections.observableArrayList(PreAction.values());
+		preActionList.setItems(preActions);
+		preActionList.getSelectionModel().select(0);
+		ObservableList<PostAction> postActions= FXCollections.observableArrayList(PostAction.values());
+		postActionList.setItems(postActions);
+		postActionList.getSelectionModel().select(0);
 	}
 	
 	protected void initPrefs(){
@@ -232,37 +275,7 @@ public class VCGUIController implements Initializable{
 	 protected void OnStopClicked() {
 		run = false;
 	    }
-	
-	@FXML
-	 protected void OnMouseOverFrame() {
-		
-//		double offsetX = view_0.getLayoutX();
-//		double offsetY = view_0.getLayoutY();
-//		
-//		horizontale.setStartX(offsetX);
-//		horizontale.setEndX(426 + offsetX);
-//		horizontale.setStrokeWidth(1);
-//		horizontale.setStroke(new Color(0,0,0,0.5));
-//
-//		verticale.setStartY(offsetY);
-//        verticale.setEndY(426 + offsetY);
-//        verticale.setStrokeWidth(1);
-//        verticale.setStroke(new Color(0,0,0,0.5));
-        
-		touchCircle.setVisible(false);
-        touchCircle.setRadius(50);
-        touchCircle.setStrokeWidth(5);
-        touchCircle.setStroke(new Color(0.95,0.05,0.05,0.8));
-        touchCircle.setFill(new Color(0.95,0.05,0.05,0.0));
-        
-		
-		if (! added){
-		     //paneView.getChildren().addAll(lines);
-		     paneView.getChildren().add(touchCircle);
-		     added = true;
-		}
 
-	}
 	
 	@FXML
 	 protected void OnMouseClickedFrame(MouseEvent event) {
@@ -290,11 +303,21 @@ public class VCGUIController implements Initializable{
 			   
 			}
 		}
+		
+        touchCircle.setRadius(50);
+        touchCircle.setStrokeWidth(5);
+        touchCircle.setStroke(new Color(0.95,0.05,0.05,0.8));
+        touchCircle.setFill(new Color(0.95,0.05,0.05,0.0));
+      
+		
+		if (! added){
+		     pane_1.getChildren().add(touchCircle);
+		     added = true;
+		}
+		
 		touchCircle.setVisible(true);
 		touchCircle.setCenterX(event.getX());
-        touchCircle.setCenterY(event.getY());
-		
-	
+        touchCircle.setCenterY(event.getY());	
 	}
 	
 	
@@ -375,7 +398,7 @@ public class VCGUIController implements Initializable{
 		newProject.setInitialDirectory(getBaseDirSaves());
 		newProject.setInitialFileName("newProject.vcg");
 		newProject.setTitle("New Video Creation Project");
-		File file = newProject.showOpenDialog(stage);
+		//File file = newProject.showOpenDialog(stage);
 	}
 	
 
@@ -385,7 +408,9 @@ public class VCGUIController implements Initializable{
 		newProject.setInitialDirectory(getBaseDirSaves());
 		newProject.setInitialFileName("newProject.vcg");
 		newProject.setTitle("Save Video Creation Project");
-		File file = newProject.showOpenDialog(stage);
+		File file = newProject.showSaveDialog(stage);
+		
+		saveProjectAs(file);
 	}
 	
 	@FXML
@@ -394,7 +419,7 @@ public class VCGUIController implements Initializable{
 		newProject.setInitialDirectory(getBaseDirSaves());
 		newProject.setInitialFileName("newProject.vcg");
 		newProject.setTitle("Save Video Creation Project As ...");
-		File file = newProject.showOpenDialog(stage);
+		File file = newProject.showSaveDialog(stage);
 		
 		saveProjectAs(file);
 	}
@@ -439,8 +464,11 @@ public class VCGUIController implements Initializable{
 	            jsonGenerator.writeNumberField("rotation", mediaToParse.getRotation());
 	            jsonGenerator.writeNumberField("position", mediaToParse.getPosition());
 	            jsonGenerator.writeNumberField("duration", mediaToParse.getDuration());
-	            jsonGenerator.writeNumberField("cutIn", mediaToParse.getDuration());
-	            jsonGenerator.writeNumberField("CutOut", mediaToParse.getDuration());
+	            jsonGenerator.writeNumberField("width", mediaToParse.getWidth());
+	            jsonGenerator.writeNumberField("height", mediaToParse.getHeight());
+	            jsonGenerator.writeBooleanField("landscape", mediaToParse.getLandscape());
+	            jsonGenerator.writeNumberField("cutIn", mediaToParse.getCutIn());
+	            jsonGenerator.writeNumberField("CutOut", mediaToParse.getCutOut());
 	            jsonGenerator.writeStringField("name", mediaToParse.getName());
 	            jsonGenerator.writeStringField("original", mediaToParse.getOriginal().toString());
 	            jsonGenerator.writeStringField("mediaPngPath", mediaToParse.getMediaPngPath().toString());
@@ -462,7 +490,42 @@ public class VCGUIController implements Initializable{
 			e1.printStackTrace();
 		}
     }
-	
+    
+    @FXML
+    public void onInButtonClick(){
+        markerIn.getMarker().setX((cursorFrame1.getWidth() / cursorFrame1.getMax()) * Math.floor(cursorFrame1.getValue()));
+        offIn.setOffX(0, (cursorFrame1.getWidth() / cursorFrame1.getMax()) * Math.floor(cursorFrame1.getValue()));
+    }
+    
+    
+    @FXML
+    public void onOutButtonClick(){
+        markerOut.getMarker().setX((cursorFrame1.getWidth() / cursorFrame1.getMax()) * Math.floor(cursorFrame1.getValue()));
+        offOut.setOffX((cursorFrame1.getWidth() / cursorFrame1.getMax()) * Math.floor(cursorFrame1.getValue()),
+        		       (cursorFrame1.getWidth() / cursorFrame1.getMax()) * Math.floor(cursorFrame1.getMax() - cursorFrame1.getValue()));
+    }
+    
+    @FXML
+    public void onAddActionButton(){
+    	 markerTouch = new MarkerAction("°");
+    	 // ajouter un ecouteur sur la marque -> modification
+    	 
+    	 // ajouter l'enregitrement dans le projet
+    	 
+    	 touchList.add((int) cursorFrame1.getValue());
+    	 markerTouch.setActionProperties((int) cursorFrame1.getValue(), touchCircle.getCenterX(), touchCircle.getCenterY());
+         anchorPane1.getChildren().add(markerTouch.getMarker());
+         markerTouch.setPosition(((cursorFrame1.getWidth() -16) / cursorFrame1.getMax()) * Math.floor(cursorFrame1.getValue()));
+         markerTouch.getMarker().setVisible(true);
+    	
+    }
+    
+    @FXML
+    public void onPreActionListSelect(){
+    	
+    }
+
+    
 
 	public Label getFrameNumber() {
 		return frameNumber;
@@ -489,6 +552,7 @@ public class VCGUIController implements Initializable{
 		
 		initBinds();
 		initModels();
+		initChoices();
 		initPrefs();
 		
 	}

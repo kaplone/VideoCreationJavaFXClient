@@ -7,7 +7,6 @@ import java.util.Observable;
 import org.jcodec.api.JCodecException;
 
 import com.fasterxml.jackson.databind.JsonNode;
-import com.fasterxml.jackson.databind.ObjectMapper;
 
 import applicationFX.VCGUIController;
 import javafx.beans.property.BooleanProperty;
@@ -21,11 +20,7 @@ import javafx.beans.property.SimpleObjectProperty;
 import javafx.beans.property.SimpleStringProperty;
 import javafx.beans.property.StringProperty;
 
-
-
 public class ImportedMedia extends Observable {
-	
-	private final ObjectMapper mapper = new ObjectMapper();
 	
 	private final StringProperty name = new SimpleStringProperty();
 	private final ObjectProperty<File> original = new SimpleObjectProperty<File>();
@@ -159,7 +154,7 @@ public ImportedMedia(JsonNode jsonSave) throws IOException, JCodecException{
 	}
 	
 	public int getCutOut() {
-		return cutIn.get();
+		return cutOut.get();
 	}
 
 	public void setCutOut(int cutOut) {

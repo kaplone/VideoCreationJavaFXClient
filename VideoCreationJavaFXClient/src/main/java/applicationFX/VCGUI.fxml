@@ -1,5 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
+<?import javafx.scene.text.*?>
 <?import javafx.scene.effect.*?>
 <?import javafx.scene.shape.*?>
 <?import javafx.scene.*?>
@@ -10,160 +11,219 @@
 <?import javafx.scene.layout.*?>
 <?import javafx.scene.media.*?>
 
-<BorderPane fx:id="root" prefHeight="656.0" prefWidth="1015.0" stylesheets="@application.css" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1" fx:controller="applicationFX.VCGUIController">
-   <right>
-      <HBox prefHeight="506.0" prefWidth="547.0" BorderPane.alignment="CENTER">
-         <children>
-            <Separator orientation="VERTICAL" prefHeight="418.0" prefWidth="0.0" /><VBox fx:id="box1" prefHeight="514.0" prefWidth="538.0">
-<children><ListView id="mediaList" fx:id="medias" onDragDropped="#importMediaDrop" onDragOver="#importMediaOver" onKeyTyped="#mediaSelect" onMouseClicked="#mediaSelect" prefHeight="193.0" prefWidth="202.0" stylesheets="@application.css" />
-                  <HBox prefHeight="100.0" prefWidth="200.0">
-                     <children>
-                        <Button mnemonicParsing="false" text="Delete media" />
-                        <Button mnemonicParsing="false" text="Delete media and temp files" />
-                     </children>
-                  </HBox>
-                  <HBox prefHeight="100.0" prefWidth="200.0">
-                     <children>
-                        <Button mnemonicParsing="false" text="Rename media" />
-                        <Button mnemonicParsing="false" text="Duplicate entry" />
-                     </children>
-                  </HBox>
-</children></VBox>
-         </children>
-      </HBox>
-   </right>
-   <bottom>
-      <VBox prefHeight="91.0" prefWidth="1015.0" BorderPane.alignment="CENTER">
-         <children>
-            <Slider fx:id="cursorFrame1" blockIncrement="1.0" max="1000.0" prefHeight="57.0" prefWidth="1015.0" showTickLabels="true" showTickMarks="true" value="15.0">
-               <VBox.margin>
-                  <Insets bottom="10.0" />
-               </VBox.margin>
-               <padding>
-                  <Insets top="40.0" />
-               </padding>
-            </Slider>
-         </children>
-         <BorderPane.margin>
-            <Insets />
-         </BorderPane.margin>
-      </VBox>
-   </bottom>
-<left><Pane fx:id="pane_1" prefHeight="514.0" prefWidth="446.0" BorderPane.alignment="CENTER">
-<children><VBox fx:id="view_2" prefHeight="519.0" prefWidth="426.0">
-<children>
-                  <HBox alignment="TOP_CENTER">
-                     <children>
-                        <Button fx:id="rotate_left" mnemonicParsing="false" onMouseClicked="#onLeftRotation" text="90° Left" />
-                        <Button fx:id="rotate_right" mnemonicParsing="false" onMouseClicked="#onRightRotation" text="90° Right" />
-                        <Button mnemonicParsing="false" text="[ In ">
-                           <HBox.margin>
-                              <Insets left="50.0" />
-                           </HBox.margin>
-                        </Button>
-                        <Button alignment="CENTER_RIGHT" mnemonicParsing="false" text="Out ]" />
-                     </children>
-                     <VBox.margin>
-                        <Insets bottom="5.0" top="5.0" />
-                     </VBox.margin>
-                  </HBox>
-                  <VBox alignment="CENTER">
-                     <children>
-                        <Pane fx:id="paneView" minHeight="-Infinity" minWidth="-Infinity" onMouseClicked="#OnMouseClickedFrame" onMouseEntered="#OnMouseOverFrame" prefHeight="426.0" prefWidth="426.0">
-                           <VBox.margin>
-                              <Insets />
-                           </VBox.margin>
+<VBox prefHeight="602.0" prefWidth="1038.0" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1" fx:controller="applicationFX.VCGUIController">
+   <children>
+      <MenuBar maxWidth="1.7976931348623157E308" prefHeight="24.0" prefWidth="1038.0">
+         <menus>
+            <Menu mnemonicParsing="false" text="File">
+               <items>
+                  <MenuItem fx:id="newProjectMenuItem" mnemonicParsing="false" onAction="#OnNewProjectMenuItem" text="New project" />
+                  <MenuItem fx:id="menuOpenProject" mnemonicParsing="false" onAction="#OnOpenProjectMenuItem" text="Open project" />
+                  <MenuItem fx:id="saveProjectMenuItem" mnemonicParsing="false" onAction="#OnSaveProjectMenuItem" text="Save project" />
+                  <MenuItem fx:id="saveProjectAsMenuItem" mnemonicParsing="false" onAction="#OnSaveAsProjectMenuItem" text="Save project as" />
+                  <MenuItem fx:id="projectPropertyMenuItem" mnemonicParsing="false" text="property" />
+                  <MenuItem mnemonicParsing="false" text="Close" />
+               </items>
+            </Menu>
+            <Menu mnemonicParsing="false" text="Edit">
+               <items>
+                  <MenuItem mnemonicParsing="false" text="Delete" />
+               </items>
+            </Menu>
+            <Menu mnemonicParsing="false" text="Options">
+               <items>
+                  <MenuItem mnemonicParsing="false" text="Settings" />
+               </items>
+            </Menu>
+            <Menu mnemonicParsing="false" text="Help">
+               <items>
+                  <MenuItem mnemonicParsing="false" text="About" />
+               </items>
+            </Menu>
+         </menus>
+      </MenuBar>
+      <Accordion prefHeight="607.0" prefWidth="1038.0">
+         <panes>
+            <TitledPane animated="false" text="Sequence">
+               <content>
+                  <BorderPane />
+               </content>
+            </TitledPane>
+            <TitledPane text="Medias">
+               <content>
+                  <BorderPane fx:id="root" prefWidth="1015.0" stylesheets="@application.css">
+                     <bottom>
+                        <VBox prefHeight="89.0" prefWidth="1016.0" BorderPane.alignment="CENTER">
                            <children>
-                              <VBox fx:id="vboxView" alignment="CENTER" prefHeight="426.0" prefWidth="426.0">
+                              <AnchorPane fx:id="anchorPane1" prefHeight="200.0" prefWidth="200.0">
                                  <children>
-                              <ImageView fx:id="view_0" cacheHint="SPEED" fitHeight="426.0" fitWidth="426.0" nodeOrientation="INHERIT" pickOnBounds="true" preserveRatio="true" smooth="false">
-                                       <cursor>
-                                          <Cursor fx:constant="DEFAULT" />
-                                       </cursor>
-                                    </ImageView>
+                                    <Rectangle fx:id="selectedZone" arcHeight="5.0" arcWidth="5.0" fill="#c9e5ff" height="21.0" layoutX="3.0" layoutY="5.0" stroke="BLACK" strokeType="INSIDE" width="892.0" />
+                                    <Rectangle fill="#b2bbc3" height="21.0" layoutY="5.0" stroke="#696f79" strokeType="INSIDE" visible="false" width="200.0" />
+                                    <Rectangle disable="true" fill="#b2bbc3" height="21.0" layoutX="914.0" layoutY="5.0" stroke="#696f79" strokeType="INSIDE" visible="false" width="100.0" />
+                                    <Slider fx:id="cursorFrame1" blockIncrement="1.0" max="1000.0" prefHeight="35.0" prefWidth="900.0" showTickLabels="true" showTickMarks="true" value="15.0">
+                                       <padding>
+                                          <Insets top="45.0" />
+                                       </padding>
+                                    </Slider>
+                                 </children>
+                                 <VBox.margin>
+                                    <Insets top="20.0" />
+                                 </VBox.margin>
+                              </AnchorPane>
+                           </children>
+                           <BorderPane.margin>
+                              <Insets />
+                           </BorderPane.margin>
+                           <padding>
+                              <Insets top="10.0" />
+                           </padding>
+                        </VBox>
+                     </bottom>
+                     <right>
+                        <HBox prefWidth="547.0" BorderPane.alignment="CENTER">
+                           <children>
+                              <Separator orientation="VERTICAL" prefWidth="0.0" />
+                              <VBox fx:id="box1" prefWidth="538.0">
+                                 <children>
+                                    <ListView id="mediaList" fx:id="medias" onDragDropped="#importMediaDrop" onDragOver="#importMediaOver" onKeyTyped="#mediaSelect" onMouseClicked="#mediaSelect" prefHeight="193.0" prefWidth="202.0" stylesheets="@application.css" />
+                                    <HBox prefWidth="538.0">
+                                       <children>
+                                          <Button disable="true" mnemonicParsing="false" text="Delete media">
+                                             <HBox.margin>
+                                                <Insets right="20.0" />
+                                             </HBox.margin>
+                                          </Button>
+                                          <Button disable="true" mnemonicParsing="false" text="Delete media and temp files" />
+                                       </children>
+                                       <VBox.margin>
+                                          <Insets bottom="10.0" top="10.0" />
+                                       </VBox.margin>
+                                    </HBox>
+                                    <HBox prefWidth="538.0">
+                                       <children>
+                                          <Button disable="true" mnemonicParsing="false" text="Rename media">
+                                             <HBox.margin>
+                                                <Insets right="20.0" />
+                                             </HBox.margin>
+                                          </Button>
+                                          <Button disable="true" mnemonicParsing="false" text="Duplicate entry">
+                                             <HBox.margin>
+                                                <Insets />
+                                             </HBox.margin>
+                                          </Button>
+                                       </children>
+                                    </HBox>
+                                    <Separator prefWidth="200.0" />
+                                    <HBox prefWidth="538.0">
+                                       <children>
+                                          <Button disable="true" mnemonicParsing="false" text="&lt;- Previous action" />
+                                          <Button disable="true" mnemonicParsing="false" text="Edit action" />
+                                          <Button disable="true" mnemonicParsing="false" text="Delete Action" />
+                                          <Button disable="true" mnemonicParsing="false" text="Next action -&gt;" textAlignment="RIGHT" />
+                                       </children>
+                                       <VBox.margin>
+                                          <Insets top="10.0" />
+                                       </VBox.margin>
+                                    </HBox>
+                                    <TilePane prefHeight="100.0" prefWidth="538.0">
+                                       <VBox.margin>
+                                          <Insets top="10.0" />
+                                       </VBox.margin>
+                                       <children>
+                                          <Button fx:id="addActionButton" mnemonicParsing="false" onMouseClicked="#onAddActionButton" text="Add New Action -&gt;" />
+                                          <Label text="Action Type :" />
+                                          <ChoiceBox fx:id="actionTypeList" prefWidth="150.0" />
+                                          <Label />
+                                          <Label text="   Pre-Action :" textAlignment="RIGHT" />
+                                          <ChoiceBox fx:id="preActionList" prefWidth="150.0" />
+                                          <Label />
+                                          <Label text=" Post-Action :" />
+                                          <ChoiceBox fx:id="postActionList" prefWidth="150.0" />
+                                       </children>
+                                    </TilePane>
+                                    <HBox alignment="TOP_CENTER">
+                                       <children>
+                                          <Button fx:id="rotate_left" mnemonicParsing="false" onMouseClicked="#onLeftRotation" text="90° Left" />
+                                          <Button fx:id="rotate_right" mnemonicParsing="false" onMouseClicked="#onRightRotation" text="90° Right" />
+                                          <Button fx:id="inButton" mnemonicParsing="false" onAction="#onInButtonClick" text="[ In ">
+                                             <HBox.margin>
+                                                <Insets left="50.0" />
+                                             </HBox.margin>
+                                          </Button>
+                                          <Button fx:id="OutButton" alignment="CENTER_RIGHT" mnemonicParsing="false" onAction="#onOutButtonClick" text="Out ]" />
+                                       </children>
+                                    </HBox>
                                  </children>
                               </VBox>
                            </children>
-                        </Pane>
-                     </children>
-                  </VBox>
-<HBox fx:id="view_1" alignment="BOTTOM_CENTER" minWidth="-Infinity" prefHeight="46.0" prefWidth="426.0">
-<children>
-<Button mnemonicParsing="false" text="Del action">
-<HBox.margin>
-<Insets left="20.0" right="20.0" />
-</HBox.margin>
-</Button>
-<Button fx:id="play" minHeight="-Infinity" minWidth="-Infinity" mnemonicParsing="false" onAction="#OnPlayClicked" prefWidth="80.0" text="Play" />
-<Button fx:id="stop" minWidth="-Infinity" mnemonicParsing="false" onAction="#OnStopClicked" prefWidth="80.0" text="Stop" />
-                        <VBox prefHeight="46.0" prefWidth="187.0">
+                        </HBox>
+                     </right>
+                     <left>
+                        <VBox fx:id="view_2" BorderPane.alignment="CENTER">
                            <children>
-                              <HBox prefHeight="31.0" prefWidth="177.0">
+                              <Pane fx:id="pane_1" onMouseClicked="#OnMouseClickedFrame" prefHeight="472.0" prefWidth="425.0">
                                  <children>
-                                    <Label prefHeight="15.0" prefWidth="85.0" text="Frame N° :" />
-            <Label fx:id="frameNumber" prefHeight="15.0" prefWidth="83.0" text="000">
-            <padding>
-            <Insets left="20.0" right="20.0" />
-            </padding>
-            </Label>
+                                    <HBox prefHeight="426.0" prefWidth="426.0">
+                                       <children>
+                                          <ImageView fx:id="view_0" cacheHint="SPEED" fitHeight="389.0" fitWidth="426.0" nodeOrientation="INHERIT" pickOnBounds="true" preserveRatio="true" smooth="false">
+                                             <cursor>
+                                                <Cursor fx:constant="DEFAULT" />
+                                             </cursor>
+                                          </ImageView>
+                                       </children>
+                                    </HBox>
+                                 </children>
+                              </Pane>
+                              <HBox alignment="BOTTOM_CENTER" prefHeight="114.0" prefWidth="425.0">
+                                 <children>
+                                    <Button fx:id="play" minHeight="-Infinity" minWidth="-Infinity" mnemonicParsing="false" onAction="#OnPlayClicked" prefWidth="80.0" text="Play" />
+                                    <Button fx:id="stop" minWidth="-Infinity" mnemonicParsing="false" onAction="#OnStopClicked" prefWidth="80.0" text="Stop" />
+                                    <VBox alignment="BOTTOM_CENTER">
+                                       <children>
+                                          <HBox alignment="CENTER_LEFT" prefWidth="177.0">
+                                             <children>
+                                                <Label prefWidth="85.0" text="Frame N° :" />
+                                                <Label fx:id="frameNumber" prefWidth="83.0" text="000">
+                                                   <padding>
+                                                      <Insets left="20.0" right="20.0" />
+                                                   </padding>
+                                                </Label>
+                                             </children>
+                                             <VBox.margin>
+                                                <Insets top="20.0" />
+                                             </VBox.margin>
+                                          </HBox>
+                                          <HBox alignment="CENTER_LEFT" prefWidth="200.0">
+                                             <children>
+                                                <Label text="SMPTE : " />
+                                                <Label text="00:00:00.000" />
+                                             </children>
+                                          </HBox>
+                                       </children>
+                                       <HBox.margin>
+                                          <Insets left="10.0" />
+                                       </HBox.margin>
+                                    </VBox>
                                  </children>
                                  <VBox.margin>
                                     <Insets />
                                  </VBox.margin>
                               </HBox>
-                              <HBox prefHeight="100.0" prefWidth="200.0">
-                                 <children>
-                                    <Label text="SMPTE : " />
-                                    <Label text="00:00:00.000" />
-                                 </children>
-                              </HBox>
                            </children>
-                           <HBox.margin>
-                              <Insets left="10.0" />
-                           </HBox.margin>
+                           <BorderPane.margin>
+                              <Insets />
+                           </BorderPane.margin>
                         </VBox>
-</children>
-<VBox.margin>
-<Insets bottom="10.0" top="10.0" />
-</VBox.margin>
-</HBox>
-</children>
+                     </left>
+                  </BorderPane>
+               </content>
+            </TitledPane>
+            <TitledPane animated="false" prefHeight="400.0" text="Settings">
+               <content>
+                  <BorderPane prefHeight="200.0" />
+               </content>
+            </TitledPane>
+         </panes>
+      </Accordion>
+   </children>
 </VBox>
-</children></Pane>
-</left>
-   <top>
-      <VBox prefHeight="51.0" prefWidth="1015.0" BorderPane.alignment="CENTER">
-         <children>
-            <MenuBar maxWidth="1.7976931348623157E308" prefHeight="29.0" prefWidth="453.0">
-               <menus>
-                  <Menu mnemonicParsing="false" text="File">
-                     <items>
-                        <MenuItem fx:id="newProjectMenuItem" mnemonicParsing="false" onAction="#OnNewProjectMenuItem" text="New project" />
-                        <MenuItem fx:id="menuOpenProject" mnemonicParsing="false" onAction="#OnOpenProjectMenuItem" text="Open project" />
-                        <MenuItem fx:id="saveProjectMenuItem" mnemonicParsing="false" onAction="#OnSaveProjectMenuItem" text="Save project" />
-                        <MenuItem fx:id="saveProjectAsMenuItem" mnemonicParsing="false" onAction="#OnSaveAsProjectMenuItem" text="Save project as" />
-                        <MenuItem fx:id="projectPropertyMenuItem" mnemonicParsing="false" text="property" />
-                        <MenuItem mnemonicParsing="false" text="Close" />
-                     </items>
-                  </Menu>
-                  <Menu mnemonicParsing="false" text="Edit">
-                     <items>
-                        <MenuItem mnemonicParsing="false" text="Delete" />
-                     </items>
-                  </Menu>
-                  <Menu mnemonicParsing="false" text="Options">
-                     <items>
-                        <MenuItem mnemonicParsing="false" text="Settings" />
-                     </items>
-                  </Menu>
-                  <Menu mnemonicParsing="false" text="Help">
-                     <items>
-                        <MenuItem mnemonicParsing="false" text="About" />
-                     </items>
-                  </Menu>
-               </menus>
-            </MenuBar>
-         </children>
-      </VBox>
-   </top>
-</BorderPane>
