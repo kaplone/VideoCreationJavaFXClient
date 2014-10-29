@@ -16,10 +16,7 @@ public class ViewService extends Service<Void> {
 	}
 
 	@Override
-	protected Task<Void> createTask() {
-		
-		System.out.println("create");
-		
+	protected Task<Void> createTask() {		
 		
 		return new Task<Void>() {
 			
@@ -27,9 +24,7 @@ public class ViewService extends Service<Void> {
 		    public Void call() throws Exception{
 				f = uiController.getF();
 				cursorFrame1 = uiController.getCursorFrame1();
-				
-				System.out.println("play !");
-				
+
 				boolean run = uiController.isRun();
 				
 				while (run){

@@ -1,4 +1,4 @@
-package applicationFX;
+package com.apptamin.model;
 
 import javafx.beans.property.BooleanProperty;
 import javafx.beans.property.DoubleProperty;

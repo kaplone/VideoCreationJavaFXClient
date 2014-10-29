@@ -23,7 +23,7 @@ public class MarkerAction extends Marker {
 		super.getMarker().setY(38);
 		}
 	
-	public void setActionProperties(int fno, double x, double y){
+	public void setActionProperties(double x, double y, int fno){
 		frameNo.set(fno);
 		XPosition.set(x);
 		YPosition.set(y);

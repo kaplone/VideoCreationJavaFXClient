@@ -42,14 +42,43 @@
             </Menu>
          </menus>
       </MenuBar>
-      <Accordion prefHeight="607.0" prefWidth="1038.0">
+      <Accordion fx:id="accordion" prefHeight="607.0" prefWidth="1038.0">
          <panes>
-            <TitledPane animated="false" text="Sequence">
+            <TitledPane fx:id="startPane" animated="false" text="Start">
+              <content>
+                <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="180.0" prefWidth="200.0">
+                     <children>
+                        <Button fx:id="newProjectButton" layoutX="344.0" layoutY="131.0" mnemonicParsing="false" onAction="#onNewProjectButtonACtion" prefHeight="143.0" prefWidth="279.0" text="New Project" />
+                        <Button fx:id="openProjectButton" layoutX="344.0" layoutY="290.0" mnemonicParsing="false" prefHeight="25.0" prefWidth="280.0" text="Open Project" />
+                     </children>
+                  </AnchorPane>
+              </content>
+            </TitledPane>
+            <TitledPane fx:id="sequencePane" animated="false" text="Sequence">
                <content>
-                  <BorderPane />
+                  <BorderPane>
+                     <center>
+                        <Pane prefHeight="200.0" prefWidth="200.0" BorderPane.alignment="CENTER">
+                           <children>
+                              <Rectangle arcHeight="5.0" arcWidth="5.0" fill="#99c2e8" height="292.0" layoutX="228.0" layoutY="39.0" stroke="BLACK" strokeType="INSIDE" width="528.0" />
+                              <Text layoutX="283.0" layoutY="190.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Please start by adding a scene or an intro to your video">
+                                 <font>
+                                    <Font size="15.0" />
+                                 </font>
+                              </Text>
+                           </children>
+                        </Pane>
+                     </center>
+                     <bottom>
+                        <Pane prefHeight="68.0" prefWidth="1054.0" BorderPane.alignment="CENTER">
+                           <children>
+                              <Rectangle arcHeight="5.0" arcWidth="5.0" fill="#a0a7ae" height="65.0" stroke="BLACK" strokeType="INSIDE" width="1050.0" />
+                           </children>
+                        </Pane>
+                     </bottom></BorderPane>
                </content>
             </TitledPane>
-            <TitledPane text="Medias">
+            <TitledPane fx:id="mediasPane" text="Medias">
                <content>
                   <BorderPane fx:id="root" prefWidth="1015.0" stylesheets="@application.css">
                      <bottom>
@@ -218,9 +247,47 @@
                   </BorderPane>
                </content>
             </TitledPane>
-            <TitledPane animated="false" prefHeight="400.0" text="Settings">
+            <TitledPane fx:id="settingsPane" animated="false" prefHeight="400.0" text="Settings">
                <content>
-                  <BorderPane prefHeight="200.0" />
+                  <BorderPane prefHeight="200.0">
+                     <center>
+                        <HBox prefHeight="100.0" prefWidth="200.0" BorderPane.alignment="CENTER">
+                           <children>
+                              <VBox prefHeight="427.0" prefWidth="518.0">
+                                 <children>
+                                    <Accordion fx:id="accordionSettings" prefHeight="414.0" prefWidth="519.0">
+                                      <panes>
+                                        <TitledPane fx:id="devicePane" animated="false" text="Device">
+                                          <content>
+                                            <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="180.0" prefWidth="200.0">
+                                                   <children>
+                                                      <ChoiceBox fx:id="deviceChoiceBox" layoutX="25.0" layoutY="35.0" prefWidth="150.0" />
+                                                      <ChoiceBox fx:id="positionChoiceBox" layoutX="25.0" layoutY="111.0" prefWidth="150.0" />
+                                                      <ChoiceBox fx:id="tapChoiceBox" layoutX="25.0" layoutY="196.0" prefWidth="150.0" />
+                                                   </children>
+                                                </AnchorPane>
+                                          </content>
+                                        </TitledPane>
+                                        <TitledPane fx:id="fontPane" animated="false" text="Font">
+                                          <content>
+                                            <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="180.0" prefWidth="200.0" />
+                                          </content>
+                                        </TitledPane>
+                                        <TitledPane fx:id="backgroundPane" animated="false" text="Background">
+                                          <content>
+                                            <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="180.0" prefWidth="200.0" />
+                                          </content>
+                                        </TitledPane>
+                                      </panes>
+                                    </Accordion>
+                                 </children>
+                              </VBox>
+                           </children>
+                        </HBox>
+                     </center>
+                     <bottom>
+                        <Button fx:id="getStartedButton" mnemonicParsing="false" onAction="#onGetStartedButtonAction" text="Get Started" BorderPane.alignment="CENTER" />
+                     </bottom></BorderPane>
                </content>
             </TitledPane>
          </panes>
