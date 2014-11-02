@@ -14,11 +14,6 @@
         eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EString"/>
     <eStructuralFeatures
         xsi:type="ecore:EReference"
-        name="medias"
-        upperBound="-1"
-        eType="#//Media"/>
-    <eStructuralFeatures
-        xsi:type="ecore:EReference"
         name="history_undo"
         upperBound="-1"
         eType="#//Change"/>
@@ -32,6 +27,19 @@
         name="settings"
         lowerBound="1"
         eType="#//Settings"/>
+    <eStructuralFeatures
+        xsi:type="ecore:EReference"
+        name="intro"
+        eType="#//Intro_Outro"/>
+    <eStructuralFeatures
+        xsi:type="ecore:EReference"
+        name="outro"
+        eType="#//Intro_Outro"/>
+    <eStructuralFeatures
+        xsi:type="ecore:EReference"
+        name="scene"
+        upperBound="-1"
+        eType="#//Scene"/>
   </eClassifiers>
   <eClassifiers
       xsi:type="ecore:EClass"
@@ -69,10 +77,6 @@
         xsi:type="ecore:EAttribute"
         name="originalPath"
         eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EString"/>
-    <eStructuralFeatures
-        xsi:type="ecore:EReference"
-        name="sound"
-        eType="#//Sound"/>
   </eClassifiers>
   <eClassifiers
       xsi:type="ecore:EClass"
@@ -141,10 +145,27 @@
         xsi:type="ecore:EAttribute"
         name="handType"
         eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EJavaObject"/>
+    <eStructuralFeatures
+        xsi:type="ecore:EAttribute"
+        name="font"
+        eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EJavaObject"/>
   </eClassifiers>
   <eClassifiers
       xsi:type="ecore:EClass"
-      name="Account"/>
+      name="Account">
+    <eStructuralFeatures
+        xsi:type="ecore:EAttribute"
+        name="serverURL"
+        eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EString"/>
+    <eStructuralFeatures
+        xsi:type="ecore:EAttribute"
+        name="username"
+        eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EString"/>
+    <eStructuralFeatures
+        xsi:type="ecore:EAttribute"
+        name="pass"
+        eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EString"/>
+  </eClassifiers>
   <eClassifiers
       xsi:type="ecore:EClass"
       name="Sound">
@@ -159,6 +180,84 @@
     <eStructuralFeatures
         xsi:type="ecore:EAttribute"
         name="name"
+        eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EString"/>
+    <eStructuralFeatures
+        xsi:type="ecore:EAttribute"
+        name="originalPath"
+        eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EString"/>
+    <eStructuralFeatures
+        xsi:type="ecore:EAttribute"
+        name="length"
+        eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EDouble"/>
+    <eStructuralFeatures
+        xsi:type="ecore:EAttribute"
+        name="enable"
+        eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EBooleanObject"/>
+  </eClassifiers>
+  <eClassifiers
+      xsi:type="ecore:EClass"
+      name="Intro_Outro">
+    <eStructuralFeatures
+        xsi:type="ecore:EAttribute"
+        name="type"
+        eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EJavaObject"/>
+    <eStructuralFeatures
+        xsi:type="ecore:EAttribute"
+        name="path"
+        eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EString"/>
+    <eStructuralFeatures
+        xsi:type="ecore:EAttribute"
+        name="width"
+        eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EInt"/>
+    <eStructuralFeatures
+        xsi:type="ecore:EAttribute"
+        name="height"
+        eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EInt"/>
+    <eStructuralFeatures
+        xsi:type="ecore:EAttribute"
+        name="lenght"
+        eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EDouble"/>
+  </eClassifiers>
+  <eClassifiers
+      xsi:type="ecore:EClass"
+      name="Transition">
+    <eStructuralFeatures
+        xsi:type="ecore:EAttribute"
+        name="name"
+        eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EString"/>
+  </eClassifiers>
+  <eClassifiers
+      xsi:type="ecore:EClass"
+      name="Scene">
+    <eStructuralFeatures
+        xsi:type="ecore:EReference"
+        name="sound"
+        eType="#//Sound"/>
+    <eStructuralFeatures
+        xsi:type="ecore:EReference"
+        name="transition"
+        eType="#//Transition"/>
+    <eStructuralFeatures
+        xsi:type="ecore:EAttribute"
+        name="devicePosition"
+        eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EJavaObject"/>
+    <eStructuralFeatures
+        xsi:type="ecore:EReference"
+        name="texts"
+        upperBound="-1"
+        eType="#//Text"/>
+    <eStructuralFeatures
+        xsi:type="ecore:EReference"
+        name="medias"
+        upperBound="-1"
+        eType="#//Media"/>
+  </eClassifiers>
+  <eClassifiers
+      xsi:type="ecore:EClass"
+      name="Text">
+    <eStructuralFeatures
+        xsi:type="ecore:EAttribute"
+        name="value"
         eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EString"/>
   </eClassifiers>
 </ecore:EPackage>
