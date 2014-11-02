@@ -147,6 +147,8 @@ public class VCGUIController implements Initializable{
 	@FXML
 	private VBox box1;
 	
+	// ----- settings pane -------
+	
 	@FXML
 	private ChoiceBox tapChoiceBox;
 	@FXML
@@ -163,6 +165,17 @@ public class VCGUIController implements Initializable{
 	private TitledPane tapPane;
 	@FXML
 	private TitledPane fontPane;
+	
+	// ----- sequence pane -------
+	
+	@FXML
+	private Accordion accordionOptional;
+	@FXML
+	private Rectangle zone;
+	@FXML
+	private Rectangle zone2;
+	@FXML
+	private TitledPane phoneAndTextPane;
 	
 	//final vars
 	
@@ -585,7 +598,15 @@ public class VCGUIController implements Initializable{
     	accordionSettings.setExpandedPane(devicePane);
     }
 
-    
+    @FXML
+    protected void onZoneAction(){
+    	accordionOptional.setExpandedPane(phoneAndTextPane);
+    	accordionOptional.setVisible(true);
+    }
+    @FXML
+    protected void onZone2Action(){
+    	accordionOptional.setVisible(false);
+    }
 
 	public Label getFrameNumber() {
 		return frameNumber;
