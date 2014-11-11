@@ -19,6 +19,8 @@ public class Splitter {
 	
 	private static final DoubleProperty width = new SimpleDoubleProperty();
 	private static final DoubleProperty height = new SimpleDoubleProperty();
+	
+	static Image temp;
 
 
 	public static int split(File media, File outDir) throws IOException, JCodecException {
@@ -44,8 +46,10 @@ public class Splitter {
 
 		} finally {
 		    NIOUtils.closeQuietly(ch);
-		    width.set(new Image(outDir + String.format("frame_%08d.png", 0)).getWidth());
-		    height.set(new Image(outDir + String.format("frame_%08d.png", 0)).getHeight());
+		    
+		    temp = new Image("file://" + outDir + String.format("/frame_%08d.png", 0));
+		    width.set(temp.getWidth());
+		    height.set(temp.getHeight());
 		}
 	}
 	

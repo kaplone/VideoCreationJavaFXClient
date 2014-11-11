@@ -6,6 +6,8 @@ import java.io.IOException;
 
 import javax.imageio.ImageIO;
 
+import utils.Point;
+
 public class RightHand {
 	
 
@@ -25,6 +27,11 @@ public class RightHand {
 		this.imageSize[0] = image.getWidth();
 		this.imageSize[1] = image.getHeight();
 		this.edge = edge;
+	}
+
+
+	public RightHand() {
+		// TODO Auto-generated constructor stub
 	}
 
 

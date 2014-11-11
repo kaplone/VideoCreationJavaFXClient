@@ -1,9 +1,6 @@
 package applicationFX;
 
 import java.io.File;
-import java.io.FileNotFoundException;
-import java.io.FileOutputStream;
-import java.io.IOException;
 import java.net.URL;
 import java.util.ResourceBundle;
 
@@ -18,18 +15,15 @@ import com.apptamin.model.History;
 import com.apptamin.model.Marker;
 import com.apptamin.model.MarkerAction;
 import com.apptamin.model.MarkerCut;
-import com.apptamin.model.MarkerMove;
-import com.apptamin.model.Point;
+import com.apptamin.model.Project;
 import com.apptamin.model.RectangleSelectionOff;
-import com.fasterxml.jackson.core.JsonFactory;
-import com.fasterxml.jackson.core.JsonGenerator;
-import com.fasterxml.jackson.core.util.DefaultPrettyPrinter;
 import com.fasterxml.jackson.databind.ObjectMapper;
 
 import utils.ImportedMedia;
 import utils.JsonUtils;
 import utils.ListCellUtils;
 import utils.ParseMedias;
+import utils.Point;
 import javafx.beans.binding.ObjectBinding;
 import javafx.beans.binding.StringBinding;
 import javafx.beans.property.DoubleProperty;
@@ -40,7 +34,6 @@ import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.event.Event;
 import javafx.event.EventHandler;
-import javafx.event.EventType;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
 import javafx.scene.control.Accordion;
@@ -131,7 +124,7 @@ public class VCGUIController implements Initializable{
 	private Button rotate_right;
 	
 	
-	// ------ menu --------
+	// ------ menu --------	
 	
 	// ----- medias -------
 	@FXML
@@ -180,6 +173,8 @@ public class VCGUIController implements Initializable{
 	//final vars
 	
 	final Stage stage = new Stage();
+	
+	final private ObjectProperty<Project> projet = new SimpleObjectProperty<Project>(new Project());
 	
 	final private Line verticale = new Line();
 	final private Line horizontale = new Line();
@@ -629,17 +624,8 @@ public class VCGUIController implements Initializable{
 	}
 	
 
-	public ObservableList<ImportedMedia> getMediaArray() {
-		return mediaArray;
-	}
-	
-
-	public ObservableList<Action> getActionArray() {
-		return actionArray;
-	}
-	
-	public ObservableList<History> getHistoryArray() {
-		return historyArray;
+	public ObjectProperty<Project> projectProperty() {
+		return projet;
 	}
 
 	@Override

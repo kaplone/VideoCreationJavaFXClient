@@ -36,6 +36,10 @@ public class Device {
 		this.screenPos = offset;
 	}
 	
+	public Device() {
+		// TODO Auto-generated constructor stub
+	}
+
 	public double getImageWidth(){
 		return this.imageSize[0];
 	}
@@ -78,6 +82,11 @@ public class Device {
 		double[] scaledScreen = {this.getScreenWidth() * standard, this.getScreenHeight() * standard};
 		double[] scaledOffset = {this.getOffsetX() * standard, this.getOffsetY() * standard};
 		return new Device(this.getImagePath(), 0, scaledScreen, scaledOffset);
+	}
+	
+	@Override
+	public String toString(){
+		return this.imagePath;
 	}
 	
 

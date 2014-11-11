@@ -33,7 +33,6 @@ public class ImportedMedia extends Observable {
 	private final IntegerProperty rotation = new SimpleIntegerProperty();
 	private final IntegerProperty cutIn = new SimpleIntegerProperty();
 	private final IntegerProperty cutOut = new SimpleIntegerProperty();
-	private final ObjectProperty<TimeLine> timeline = new SimpleObjectProperty<TimeLine>();
 	
 	public ImportedMedia() {
 	}
@@ -67,7 +66,6 @@ public ImportedMedia(JsonNode jsonSave) throws IOException, JCodecException{
 		this.landscape.set(jsonSave.get("landscape").asBoolean());
 		this.cutIn.set(jsonSave.get("cutIn").asInt());
 		this.cutOut.set(jsonSave.get("cutOut").asInt());
-		this.timeline.set(new TimeLine(jsonSave.get("timeline")));
 		
 	}
 	

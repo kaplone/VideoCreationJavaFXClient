@@ -1,4 +1,4 @@
-package com.apptamin.model;
+package utils;
 
 //TODO voir  : 
 //             java.awt.geom.Point2D.Double

@@ -120,9 +120,9 @@
                <content>
                   <BorderPane fx:id="root" prefWidth="1015.0" stylesheets="@application.css">
                      <bottom>
-                        <VBox prefHeight="89.0" prefWidth="1016.0" BorderPane.alignment="CENTER">
+                        <VBox prefHeight="67.0" prefWidth="1055.0" BorderPane.alignment="CENTER">
                            <children>
-                              <AnchorPane fx:id="anchorPane1" prefHeight="200.0" prefWidth="200.0">
+                              <AnchorPane fx:id="anchorPane1" prefHeight="53.0" prefWidth="1055.0">
                                  <children>
                                     <Rectangle fx:id="selectedZone" arcHeight="5.0" arcWidth="5.0" fill="#c9e5ff" height="21.0" layoutX="3.0" layoutY="5.0" stroke="BLACK" strokeType="INSIDE" width="892.0" />
                                     <Rectangle fill="#b2bbc3" height="21.0" layoutY="5.0" stroke="#696f79" strokeType="INSIDE" visible="false" width="200.0" />
@@ -134,16 +134,13 @@
                                     </Slider>
                                  </children>
                                  <VBox.margin>
-                                    <Insets top="20.0" />
+                                    <Insets top="10.0" />
                                  </VBox.margin>
                               </AnchorPane>
                            </children>
                            <BorderPane.margin>
                               <Insets />
                            </BorderPane.margin>
-                           <padding>
-                              <Insets top="10.0" />
-                           </padding>
                         </VBox>
                      </bottom>
                      <right>
@@ -183,10 +180,10 @@
                                     <Separator prefWidth="200.0" />
                                     <HBox prefWidth="538.0">
                                        <children>
-                                          <Button disable="true" mnemonicParsing="false" text="&lt;- Previous action" />
+                                          <Button mnemonicParsing="false" text="&lt;- Previous action" />
                                           <Button disable="true" mnemonicParsing="false" text="Edit action" />
                                           <Button disable="true" mnemonicParsing="false" text="Delete Action" />
-                                          <Button disable="true" mnemonicParsing="false" text="Next action -&gt;" textAlignment="RIGHT" />
+                                          <Button mnemonicParsing="false" text="Next action -&gt;" textAlignment="RIGHT" />
                                        </children>
                                        <VBox.margin>
                                           <Insets top="10.0" />
@@ -226,13 +223,13 @@
                         </HBox>
                      </right>
                      <left>
-                        <VBox fx:id="view_2" BorderPane.alignment="CENTER">
+                        <VBox fx:id="view_2" prefHeight="385.0" prefWidth="316.0" BorderPane.alignment="CENTER">
                            <children>
-                              <Pane fx:id="pane_1" onMouseClicked="#OnMouseClickedFrame" prefHeight="472.0" prefWidth="425.0">
+                              <Pane fx:id="pane_1" onMouseClicked="#OnMouseClickedFrame" prefHeight="426.0" prefWidth="418.0">
                                  <children>
-                                    <HBox prefHeight="426.0" prefWidth="426.0">
+                                    <HBox prefHeight="335.0" prefWidth="287.0">
                                        <children>
-                                          <ImageView fx:id="view_0" cacheHint="SPEED" fitHeight="389.0" fitWidth="426.0" nodeOrientation="INHERIT" pickOnBounds="true" preserveRatio="true" smooth="false">
+                                          <ImageView fx:id="view_0" cacheHint="SPEED" fitHeight="335.0" fitWidth="193.0" nodeOrientation="INHERIT" pickOnBounds="true" preserveRatio="true" smooth="false">
                                              <cursor>
                                                 <Cursor fx:constant="DEFAULT" />
                                              </cursor>
