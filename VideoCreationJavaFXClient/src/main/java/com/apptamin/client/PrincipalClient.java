@@ -31,6 +31,8 @@ public class PrincipalClient {
 	
 	public static BufferedImage getCompo(int number, Point [] points) throws IOException{
 		
+		System.out.println(number  + "   "+  points.length);
+		
 		File path = new File("images/source_pictures");
 		File pathOut = new File("/home/kaplone/VideoCreation/temp/tt_rr_001_720x1280_6.mp4");
 		

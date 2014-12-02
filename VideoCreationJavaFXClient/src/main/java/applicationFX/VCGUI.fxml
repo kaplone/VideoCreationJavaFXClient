@@ -72,7 +72,7 @@
                                 </points>
                               </Polygon>
                               <Rectangle fx:id="curseur2" arcHeight="5.0" arcWidth="5.0" fill="DODGERBLUE" height="60.0" layoutX="96.0" layoutY="7.0" stroke="#00000070" strokeType="INSIDE" width="4.0" />
-                              <Slider fx:id="slider2" layoutX="50.0" layoutY="-8.0" prefHeight="15.0" prefWidth="1005.0" value="4.0" />
+                              <Slider fx:id="slider2" layoutX="50.0" layoutY="-8.0" majorTickUnit="5.0" minorTickCount="1" prefHeight="15.0" prefWidth="1005.0" showTickLabels="true" showTickMarks="true" value="4.0" />
                            </children>
                         </Pane>
                      </bottom>

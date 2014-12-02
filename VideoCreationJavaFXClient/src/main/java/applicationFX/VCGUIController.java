@@ -271,6 +271,9 @@ public class VCGUIController implements Initializable{
 	
 	ObjectBinding<Double> currentPosition;
 	ObjectBinding<Image> imgFrame ;
+	ObjectBinding<Double> prevPosition;
+	ObjectBinding<Image> prevFrame ;
+
 
 
 	protected void initBinds(){
@@ -304,6 +307,17 @@ public class VCGUIController implements Initializable{
 			}
 		};
 		
+		prevFrame = new ObjectBinding<Image>() {
+			{
+				super.bind(slider2.valueProperty());
+			}
+			
+			@Override
+			protected Image computeValue() {
+				return affCompo((int)Math.round(slider2.valueProperty().getValue()));
+			}
+		};
+		
 		currentPosition = new ObjectBinding<Double>() {
 			{
 				super.bind(cursorFrame1.valueProperty());
@@ -323,6 +337,9 @@ public class VCGUIController implements Initializable{
 		
 		view_0.imageProperty().unbind();
 		view_0.imageProperty().bind(imgFrame);
+		
+		compo.imageProperty().unbind();
+		compo.imageProperty().bind(prevFrame);
 		
 	}
 
@@ -608,7 +625,7 @@ public class VCGUIController implements Initializable{
     	try {
 			points = HttpClient.httpClient(actionArray.toArray(new Action [0]));
 			accordion.setExpandedPane(sequencePane);
-			affCompo();
+			//affCompo(8);
 		} catch (Exception e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
@@ -616,14 +633,18 @@ public class VCGUIController implements Initializable{
     	
     }
     
-    public void affCompo(){
+    public Image affCompo(int i){
     	
     	try {
-			bufferedCompo = PrincipalClient.getCompo(8, points);
+			bufferedCompo = PrincipalClient.getCompo(i, points);
 		} catch (IOException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
+		} catch (NullPointerException npe) {
+			// TODO Auto-generated catch block
+			npe.printStackTrace();
 		}
+    	
     	
     	
     	WritableImage wr = null;
@@ -636,8 +657,8 @@ public class VCGUIController implements Initializable{
                 }
             }
         }
-    	
-    	compo.setImage(wr);
+    	return wr;
+    	//compo.setImage(wr);
     }
 	 
     
