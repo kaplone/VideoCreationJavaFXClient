@@ -24,7 +24,9 @@ import com.apptamin.client.Point;
 
 public class HttpClient {
 	
-	public final static void httpClient(Action[] actions) throws Exception {
+	static Point[] points;
+	
+	public final static Point[] httpClient(Action[] actions) throws Exception {
 		
 		//Logger
 		Log log = LogFactory.getLog(HttpClient.class);
@@ -61,9 +63,6 @@ public class HttpClient {
 		// Convert java objects to JSON
 		ObjectMapper mapper = new ObjectMapper();
 		String jsonpost = mapper.writeValueAsString(request);
-		log.info("_______");
-		log.info(jsonpost);
-		log.info("_______");
 		httppost.setEntity(new StringEntity(jsonpost));
 
 		// Execute query
@@ -83,15 +82,16 @@ public class HttpClient {
 				log.info(a.print());
 			}
 
-			Point [] points = Point.getPoints(result);
-			PrincipalClient.principalClient(points);
+			points = Point.getPoints(result);
+			//PrincipalClient.principalClient(points);
 			
-
 
 			// Close stream
 			EntityUtils.consume(entity);
 		} finally {
 			response.close();
 		}
+		
+		return points;
 	}
 }

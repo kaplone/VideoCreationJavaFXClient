@@ -1,11 +1,14 @@
 package applicationFX;
 
+import java.awt.image.BufferedImage;
 import java.io.File;
+import java.io.IOException;
 import java.net.URL;
 import java.util.ResourceBundle;
 
 import com.apptamin.client.HttpClient;
 import com.apptamin.client.Point;
+import com.apptamin.client.PrincipalClient;
 import com.apptamin.common.ActionType;
 import com.apptamin.common.DeviceChoices;
 import com.apptamin.common.PositionChoices;
@@ -46,6 +49,8 @@ import javafx.scene.control.Slider;
 import javafx.scene.control.TitledPane;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
+import javafx.scene.image.PixelWriter;
+import javafx.scene.image.WritableImage;
 import javafx.scene.input.DragEvent;
 import javafx.scene.input.Dragboard;
 import javafx.scene.input.MouseEvent;
@@ -60,6 +65,7 @@ import javafx.scene.shape.Line;
 import javafx.scene.shape.Rectangle;
 import javafx.stage.FileChooser;
 import javafx.stage.Stage;
+import javafx.embed.swing.SwingFXUtils;
 
 
 public class VCGUIController implements Initializable{
@@ -139,6 +145,18 @@ public class VCGUIController implements Initializable{
 	private final ObservableList<History> historyArray = FXCollections.observableArrayList();
 	
 	private ImportedMedia currentMedia;
+	
+	// ------ Sequence pane
+	
+	@FXML
+	private ImageView compo;
+	@FXML
+	private Slider slider2;
+	@FXML
+	private Rectangle curseur2;
+	
+	
+	// ----- ??? ----
 
 	@FXML
 	private VBox box1;
@@ -216,6 +234,10 @@ public class VCGUIController implements Initializable{
 	private EventHandler<Event> getEvent;
 	private EventHandler<Event> changeLabel;
 	private EventHandler<Event> updateProject ;
+	
+	private Point [] points;
+	
+	private BufferedImage bufferedCompo;
 	
 	
 	// getters - setters
@@ -584,12 +606,38 @@ public class VCGUIController implements Initializable{
     public void onButtonGenerate(){
     	
     	try {
-			HttpClient.httpClient(actionArray.toArray(new Action [0]));
+			points = HttpClient.httpClient(actionArray.toArray(new Action [0]));
+			accordion.setExpandedPane(sequencePane);
+			affCompo();
 		} catch (Exception e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
     	
+    }
+    
+    public void affCompo(){
+    	
+    	try {
+			bufferedCompo = PrincipalClient.getCompo(8, points);
+		} catch (IOException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+    	
+    	
+    	WritableImage wr = null;
+        if (bufferedCompo != null) {
+            wr = new WritableImage(bufferedCompo.getWidth(), bufferedCompo.getHeight());
+            PixelWriter pw = wr.getPixelWriter();
+            for (int x = 0; x < bufferedCompo.getWidth(); x++) {
+                for (int y = 0; y < bufferedCompo.getHeight(); y++) {
+                    pw.setArgb(x, y, bufferedCompo.getRGB(x, y));
+                }
+            }
+        }
+    	
+    	compo.setImage(wr);
     }
 	 
     
