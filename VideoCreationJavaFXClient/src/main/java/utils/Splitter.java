@@ -31,7 +31,7 @@ public class Splitter {
 		
 		try {
 			//ProcessBuilder pb_full = new ProcessBuilder("ffmpeg","-i", media, outdir_full+"/frame_%05d.png");
-            ProcessBuilder pb_prev = new ProcessBuilder("ffmpeg","-i", media.toString(),"-vf", "scale=iw/2:ih/2", outDirPrev+"/frame_%08d.png");
+            ProcessBuilder pb_prev = new ProcessBuilder("ffmpeg","-i", media.toString(),"-vf", "scale=iw/2.96:ih/2.96", outDirPrev+"/frame_%08d.png");
             //pb.directory(outDirFull);
             pb_prev.directory(outDirPrev);
             

@@ -62,6 +62,7 @@ import javafx.scene.layout.VBox;
 import javafx.scene.paint.Color;
 import javafx.scene.shape.Circle;
 import javafx.scene.shape.Line;
+import javafx.scene.shape.Polygon;
 import javafx.scene.shape.Rectangle;
 import javafx.stage.FileChooser;
 import javafx.stage.Stage;
@@ -154,6 +155,12 @@ public class VCGUIController implements Initializable{
 	private Slider slider2;
 	@FXML
 	private Rectangle curseur2;
+	@FXML
+	private Polygon play_pane;
+	@FXML
+	private Pane pause_pane;
+	@FXML
+	private Pane pane2;
 	
 	
 	// ----- ??? ----
@@ -204,6 +211,7 @@ public class VCGUIController implements Initializable{
 	final private Circle touchCircle = new Circle();
 
 	final private ViewService viewService = new ViewService(this);
+	final private ViewService2 viewService2 = new ViewService2(this);
 	
 	final private JsonMediaGenerator mediaGenerator = new JsonMediaGenerator(this);
 	
@@ -231,6 +239,8 @@ public class VCGUIController implements Initializable{
 	
 	private boolean added = false;
 	private boolean run = true;
+	private boolean run2 = false;
+	private boolean pausedPane = true;
 	private EventHandler<Event> getEvent;
 	private EventHandler<Event> changeLabel;
 	private EventHandler<Event> updateProject ;
@@ -623,8 +633,12 @@ public class VCGUIController implements Initializable{
     public void onButtonGenerate(){
     	
     	try {
-			points = HttpClient.httpClient(actionArray.toArray(new Action [0]));
+			points = HttpClient.httpClient(actionArray.toArray(new Action [0]), currentMedia.getDuration() );// ameliorer avec diff cut_in cut_out
 			accordion.setExpandedPane(sequencePane);
+			
+			// limiter la longueur de la timeline.
+			
+			
 			//affCompo(8);
 		} catch (Exception e) {
 			// TODO Auto-generated catch block
@@ -658,7 +672,26 @@ public class VCGUIController implements Initializable{
             }
         }
     	return wr;
-    	//compo.setImage(wr);
+    }
+    
+    @FXML
+    protected void onPlayPane(){
+    	
+    	if (pausedPane){
+    		play_pane.setVisible(false);
+    		pause_pane.setVisible(true);
+    		pausedPane = false;
+    		run2= true;
+    		viewService2.restart();
+    	}
+    	else{
+    		play_pane.setVisible(true);
+    		pause_pane.setVisible(false);
+    		pausedPane = true;
+    		run2 = false;
+    	}
+    	
+    	
     }
 	 
     
@@ -707,10 +740,23 @@ public class VCGUIController implements Initializable{
 		return run;
 	}
 	
+	public double getF2() {
+		return slider2.getValue();
+	}
+
+	public boolean isRun2() {
+		return run2;
+	}
+	
 
 	public ObjectProperty<Project> projectProperty() {
 		return projet;
 	}
+	
+	public Slider getSlider2() {
+		return slider2;
+	}
+	
 
 	@Override
 	public void initialize(URL location, ResourceBundle resources) {

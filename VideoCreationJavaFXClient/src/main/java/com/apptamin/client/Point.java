@@ -6,6 +6,8 @@ package com.apptamin.client;
 
 import java.lang.Math;
 import java.util.ArrayList;
+import java.util.HashMap;
+import java.util.Map;
 
 import com.apptamin.model.ActionPosition;
 
@@ -49,13 +51,13 @@ public class Point {
 		return fingerRelativeToRootPoint(x + 788, y + 451);// TODO : update with object
 	}
 	
-	public static Point[] getPoints(ActionPosition [] liste){
-		ArrayList<Point> points = new ArrayList<>();
+	public static Map<Integer, Point> getPoints(ActionPosition [] liste){
+		Map<Integer, Point> points = new HashMap<Integer, Point>();
 		for (ActionPosition ap : liste){
-			points.add(Point.getPoint(ap));
+			points.put(ap.getImageNumber(), Point.getPoint(ap));
 		}
 		
-		return points.toArray(new Point [0]);
+		return points;
 	}
 	
 	public static Point getPoint(ActionPosition ap){

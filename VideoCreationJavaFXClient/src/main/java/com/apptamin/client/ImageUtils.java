@@ -14,8 +14,8 @@ public class ImageUtils {
 	
 	static final int posXDevice = 0;
 	static final int posYDevice = 0;
-	static final int posXContent = 282;
-	static final int posYContent  = 162;
+	static final int posXContent = 171;
+	static final int posYContent  = 98;
 	
 	public static BufferedImage scale(BufferedImage bi, double scaleValue) {
         AffineTransform tx = new AffineTransform();

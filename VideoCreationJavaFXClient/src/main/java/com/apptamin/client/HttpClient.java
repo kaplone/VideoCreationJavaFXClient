@@ -1,7 +1,11 @@
 package com.apptamin.client;
 
 import java.io.InputStream;
+import java.util.ArrayList;
 import java.util.Arrays;
+import java.util.Collection;
+import java.util.Map;
+import java.util.Set;
 
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
@@ -24,9 +28,12 @@ import com.apptamin.client.Point;
 
 public class HttpClient {
 	
+	static Map<Integer, Point> resultMap;
+	static Collection<Point> points_coll;
+	static Set<Integer> framesSet;
 	static Point[] points;
 	
-	public final static Point[] httpClient(Action[] actions) throws Exception {
+	public final static Point[] httpClient(Action[] actions, int length) throws Exception {
 		
 		//Logger
 		Log log = LogFactory.getLog(HttpClient.class);
@@ -42,13 +49,13 @@ public class HttpClient {
 		PositionsRequest request = new PositionsRequest();
 		
 		for (Action a : actions){
-			log.info(a.positionProperty().getValue().getCoordX() + "  " +
-		    		 a.positionProperty().getValue().getCoordY() + "  " +
-		    		 a.positionProperty().getValue().getImageNumber() + "  " +
-		    		 a.preActionProperty().getValue().getCode() + "  " +
-		    		 a.postActionProperty().getValue().getCode() + "  " +
-		    		 0 + "  " +
-		    		 a.actionTypeProperty().getValue().getCode());
+//			log.info(a.positionProperty().getValue().getCoordX() + "  " +
+//		    		 a.positionProperty().getValue().getCoordY() + "  " +
+//		    		 a.positionProperty().getValue().getImageNumber() + "  " +
+//		    		 a.preActionProperty().getValue().getCode() + "  " +
+//		    		 a.postActionProperty().getValue().getCode() + "  " +
+//		    		 0 + "  " +
+//		    		 a.actionTypeProperty().getValue().getCode());
 			
 		    request.add(new ActionPosition(a.positionProperty().getValue().getCoordX(),
 		    		                       a.positionProperty().getValue().getCoordY(),
@@ -78,11 +85,20 @@ public class HttpClient {
 			
 			ActionPosition[] result = mapper.readValue(in, ActionPosition[].class);
 			
-			for (ActionPosition a : result){
-				log.info(a.print());
+			resultMap = Point.getPoints(result);
+			framesSet = resultMap.keySet();
+			
+			
+			for (int j = 0;j < length; j++){
+				if (! framesSet.contains(j)){
+					System.out.println(j + " non présent");
+					resultMap.put(j, new Point(200, 200, null,  j));
+				}
+				else {
+					System.out.println(j + " présent");
+				}
+				
 			}
-
-			points = Point.getPoints(result);
 			//PrincipalClient.principalClient(points);
 			
 
@@ -92,6 +108,12 @@ public class HttpClient {
 			response.close();
 		}
 		
+		points = new Point [resultMap.size()];
+				
+		for (Integer i : framesSet){
+			points[i] = resultMap.get(i);
+			
+		}
 		return points;
 	}
 }

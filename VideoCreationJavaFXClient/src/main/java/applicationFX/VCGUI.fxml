@@ -1,5 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
+<?import javafx.scene.paint.*?>
 <?import javafx.scene.text.*?>
 <?import javafx.scene.effect.*?>
 <?import javafx.scene.shape.*?>
@@ -58,10 +59,17 @@
                <content>
                   <BorderPane>
                      <bottom>
-                        <Pane prefHeight="68.0" prefWidth="1054.0" BorderPane.alignment="CENTER">
+                        <Pane fx:id="pane3" prefHeight="68.0" prefWidth="1054.0" BorderPane.alignment="CENTER">
                            <children>
                               <Rectangle fx:id="zone2" arcHeight="5.0" arcWidth="5.0" fill="#a0a7ae" height="65.0" layoutX="50.0" onMouseClicked="#onZone2Action" stroke="BLACK" strokeType="INSIDE" width="1000.0" />
-                              <Polygon fill="#163451" layoutX="27.0" layoutY="43.0" rotate="90.0" scaleX="0.5" scaleY="0.4" stroke="BLACK" strokeType="INSIDE">
+                              <Rectangle fx:id="curseur2" arcHeight="5.0" arcWidth="5.0" fill="DODGERBLUE" height="60.0" layoutX="96.0" layoutY="7.0" stroke="#00000070" strokeType="INSIDE" width="4.0" />
+                              <Pane fx:id="pause_pane" onMouseClicked="#onPlayPane" prefHeight="65.0" prefWidth="50.0" visible="false">
+                                 <children>
+                                    <Rectangle arcHeight="5.0" arcWidth="5.0" fill="#033363" height="62.0" stroke="BLACK" strokeType="INSIDE" width="16.0" />
+                                    <Rectangle arcHeight="5.0" arcWidth="5.0" fill="#033363" height="62.0" layoutX="28.0" stroke="BLACK" strokeType="INSIDE" width="16.0" />
+                                 </children>
+                              </Pane>
+                              <Polygon fx:id="play_pane" fill="#033363" layoutX="27.0" layoutY="43.0" onMouseClicked="#onPlayPane" rotate="90.0" scaleX="0.5" scaleY="0.4" stroke="BLACK" strokeType="INSIDE">
                                 <points>
                                   <Double fx:value="-50.0" />
                                   <Double fx:value="40.0" />
@@ -71,13 +79,12 @@
                                   <Double fx:value="-60.0" />
                                 </points>
                               </Polygon>
-                              <Rectangle fx:id="curseur2" arcHeight="5.0" arcWidth="5.0" fill="DODGERBLUE" height="60.0" layoutX="96.0" layoutY="7.0" stroke="#00000070" strokeType="INSIDE" width="4.0" />
-                              <Slider fx:id="slider2" layoutX="50.0" layoutY="-8.0" majorTickUnit="5.0" minorTickCount="1" prefHeight="15.0" prefWidth="1005.0" showTickLabels="true" showTickMarks="true" value="4.0" />
+                              <Slider fx:id="slider2" focusTraversable="false" layoutX="50.0" layoutY="-8.0" majorTickUnit="5.0" minorTickCount="1" prefHeight="15.0" prefWidth="1005.0" showTickLabels="true" showTickMarks="true" value="4.0" />
                            </children>
                         </Pane>
                      </bottom>
                      <right>
-                        <Accordion fx:id="accordionOptional" BorderPane.alignment="CENTER">
+                        <Accordion fx:id="accordionOptional" prefHeight="334.0" prefWidth="202.0" BorderPane.alignment="CENTER">
                           <panes>
                             <TitledPane fx:id="phoneAndTextPane" animated="false" text="Phone &amp; text position">
                               <content>
@@ -96,7 +103,7 @@
                             </TitledPane>
                           </panes>
                            <BorderPane.margin>
-                              <Insets bottom="10.0" left="10.0" right="10.0" top="10.0" />
+                              <Insets bottom="30.0" left="10.0" right="10.0" top="10.0" />
                            </BorderPane.margin>
                         </Accordion>
                      </right>
@@ -108,12 +115,18 @@
                                     <Font size="15.0" />
                                  </font>
                               </Text>
-                              <ImageView fx:id="compo" fitHeight="370.0" fitWidth="643.0" pickOnBounds="true" preserveRatio="true" />
+                              <ImageView fx:id="compo" fitHeight="349.0" fitWidth="643.0" pickOnBounds="true" preserveRatio="true" />
                            </children>
+                           <BorderPane.margin>
+                              <Insets bottom="30.0" />
+                           </BorderPane.margin>
                         </Pane>
                      </center>
                      <left>
-                        <Pane prefHeight="200.0" prefWidth="200.0" BorderPane.alignment="CENTER" />
+                        <Pane prefHeight="200.0" prefWidth="200.0" BorderPane.alignment="CENTER">
+                           <BorderPane.margin>
+                              <Insets bottom="30.0" />
+                           </BorderPane.margin></Pane>
                      </left></BorderPane>
                </content>
             </TitledPane>

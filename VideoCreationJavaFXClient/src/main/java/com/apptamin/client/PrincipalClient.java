@@ -31,20 +31,18 @@ public class PrincipalClient {
 	
 	public static BufferedImage getCompo(int number, Point [] points) throws IOException{
 		
-		System.out.println(number  + "   "+  points.length);
-		
 		File path = new File("images/source_pictures");
-		File pathOut = new File("/home/kaplone/VideoCreation/temp/tt_rr_001_720x1280_6.mp4");
+		File pathOut = new File("/home/kaplone/VideoCreation/temp/acer_catpure_003_720x1280@6.mp4");
 		
-		BufferedImage device = ImageIO.read(new File(path, "Main_F_iPhones_1_prev.png"));
-		int w = 1280;//device.getWidth();
-		int h = 720;//device.getHeight();
+		BufferedImage device = ImageIO.read(new File(path, "Main_F_iPhones_1_prev1.png"));
+		int w = 768;//device.getWidth();
+		int h = 432;//device.getHeight();
 		Point pointDevice = new Point(w/2, h/2);
 		
-		BufferedImage main = ImageIO.read(new File(path, "Main_F_Clic_1_prev.png"));
-		Point pointDoigt = new Point(225, 45);
+		BufferedImage main = ImageIO.read(new File(path, "Main_F_Clic_1_prev1.png"));
+		Point pointDoigt = new Point(134, 30);
 		
-		BufferedImage fond = ImageIO.read(new File(path, "4217-fond.png"));
+		BufferedImage fond = ImageIO.read(new File(path, "4217-fond_prev1.png"));
 		
 		BufferedImage composition = new BufferedImage(w, h, BufferedImage.TYPE_INT_ARGB);
         
@@ -62,16 +60,16 @@ public class PrincipalClient {
                     device,
                     contenu(number),
                     main,
-                    points[number].getCoordX(),
-                    points[number].getCoordY(),
+                    200,
+                    200,
                     composition);
 		}
 	}
 	
 	public static BufferedImage contenu(int i) throws IOException {
-		File pathFrames = new File("/home/kaplone/VideoCreation/medias/temp/tt_rr_001_720x1280_6.mp4");
+		File pathFrames = new File("/home/kaplone/VideoCreation/medias/temp/acer_catpure_003_720x1280@6.mp4");
 		BufferedImage contenu = ImageIO.read(new File(pathFrames, String.format("frame_%08d.png", i)));
-		contenu = ImageUtils.scale(contenu, 0.4);
+		contenu = ImageUtils.scale(contenu, 0.39); // implémenter une fonction de calcul de la valeur exacte
 		
 		return contenu;
 	}
