@@ -1,5 +1,6 @@
 package com.apptamin.model;
 
+import com.apptamin.client.Point;
 import com.apptamin.common.ActionType;
 import com.apptamin.common.PostAction;
 import com.apptamin.common.PreAction;
@@ -8,7 +9,6 @@ import javafx.beans.property.IntegerProperty;
 import javafx.beans.property.ObjectProperty;
 import javafx.beans.property.SimpleObjectProperty;
 import utils.ImportedMedia;
-import utils.Point;
 
 public class Action {
 	

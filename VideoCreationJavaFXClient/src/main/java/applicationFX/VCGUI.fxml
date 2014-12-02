@@ -122,25 +122,40 @@
                      <bottom>
                         <VBox prefHeight="67.0" prefWidth="1055.0" BorderPane.alignment="CENTER">
                            <children>
-                              <AnchorPane fx:id="anchorPane1" prefHeight="53.0" prefWidth="1055.0">
+                              <HBox prefHeight="100.0" prefWidth="200.0">
                                  <children>
-                                    <Rectangle fx:id="selectedZone" arcHeight="5.0" arcWidth="5.0" fill="#c9e5ff" height="21.0" layoutX="3.0" layoutY="5.0" stroke="BLACK" strokeType="INSIDE" width="892.0" />
-                                    <Rectangle fill="#b2bbc3" height="21.0" layoutY="5.0" stroke="#696f79" strokeType="INSIDE" visible="false" width="200.0" />
-                                    <Rectangle disable="true" fill="#b2bbc3" height="21.0" layoutX="914.0" layoutY="5.0" stroke="#696f79" strokeType="INSIDE" visible="false" width="100.0" />
-                                    <Slider fx:id="cursorFrame1" blockIncrement="1.0" max="1000.0" prefHeight="35.0" prefWidth="900.0" showTickLabels="true" showTickMarks="true" value="15.0">
+                                    <AnchorPane fx:id="anchorPane1" maxWidth="-Infinity" minWidth="-Infinity" prefHeight="67.0" prefWidth="913.0">
+                                       <children>
+                                          <Rectangle fx:id="selectedZone" arcHeight="5.0" arcWidth="5.0" fill="#c9e5ff" height="21.0" layoutX="3.0" layoutY="5.0" stroke="BLACK" strokeType="INSIDE" width="892.0" />
+                                          <Rectangle fill="#b2bbc3" height="21.0" layoutY="5.0" stroke="#696f79" strokeType="INSIDE" visible="false" width="200.0" />
+                                          <Rectangle disable="true" fill="#b2bbc3" height="21.0" layoutX="914.0" layoutY="5.0" stroke="#696f79" strokeType="INSIDE" visible="false" width="100.0" />
+                                          <Slider fx:id="cursorFrame1" blockIncrement="1.0" max="1000.0" prefHeight="35.0" prefWidth="900.0" showTickLabels="true" showTickMarks="true" value="15.0">
+                                             <padding>
+                                                <Insets top="45.0" />
+                                             </padding>
+                                          </Slider>
+                                       </children>
+                                    </AnchorPane>
+                                    <Button fx:id="buttonGenerate" minWidth="-Infinity" mnemonicParsing="false" onAction="#onButtonGenerate" prefHeight="67.0" prefWidth="125.0" text="Generate" translateX="10.0">
+                                       <HBox.margin>
+                                          <Insets />
+                                       </HBox.margin>
                                        <padding>
-                                          <Insets top="45.0" />
+                                          <Insets top="5.0" />
                                        </padding>
-                                    </Slider>
+                                    </Button>
                                  </children>
-                                 <VBox.margin>
-                                    <Insets top="10.0" />
-                                 </VBox.margin>
-                              </AnchorPane>
+                              </HBox>
                            </children>
                            <BorderPane.margin>
                               <Insets />
                            </BorderPane.margin>
+                           <HBox.margin>
+                              <Insets top="5.0" />
+                           </HBox.margin>
+                           <padding>
+                              <Insets top="5.0" />
+                           </padding>
                         </VBox>
                      </bottom>
                      <right>

@@ -9,10 +9,10 @@ import javax.imageio.ImageIO;
 
 public class PrincipalClient {
 
-	public static void main(String[] args) throws IOException {
+	public static void principalClient(Point[] PP) throws IOException {
 		
 		File path = new File("images/source_pictures");
-		File pathOut = new File("images/images_out");
+		File pathOut = new File("/home/kaplone/VideoCreation/temp/mjpeg_544x948.avi");
 		
 		BufferedImage device = ImageIO.read(new File(path, "Main_F_iPhones_1.png"));
 		int w = device.getWidth();
@@ -27,24 +27,23 @@ public class PrincipalClient {
 		
 		BufferedImage composition = new BufferedImage(w, h, BufferedImage.TYPE_INT_ARGB);
 		
-		List<String> frames = OtherUtils.sortedList(new File("images/frames_WakeApp"));
+		List<String> frames = OtherUtils.sortedList(new File("/home/kaplone/VideoCreation/medias/mjpeg_544x948.avi"));
 		
 		Point temp;
 		
-//		for (Point p : PP){
-//			ImageUtils.writeImage(ImageUtils.compose4Layers(fond, device, contenu(p.getImageNumber()), main, p.getCoordX(), p.getCoordY(), composition), pathOut, String.format("test_mvt_%05d.png", p.getImageNumber()));
-//		}
-		
-//		for (int i = 1; i < frames.size(); i++){
-//		    temp = pointDoigt.doigtRelatifToDevice(0, 0);// remplacer  (0, 0) par les accesseurs à la liste des coordonnees
-//		    ImageUtils.ecrireImage(ImageUtils.composition4Niveaux(fond, device, contenu(i), main, temp.getCoordX(), temp.getCoordY(), composition), pathOut, String.format("test_%05d.png", i));
-//		}
+		for (Point p : PP){
+			ImageUtils.writeImage(ImageUtils.compose4Layers(fond, device, contenu(p.getImageNumber()), main, p.getCoordX(), p.getCoordY(), composition), pathOut, String.format("frame_mvt_%08d.png", p.getImageNumber()));
+		}		
+		for (int i = 1; i < frames.size(); i++){
+		    temp = pointDoigt.fingerRelativeToDevice(0, 0);// remplacer  (0, 0) par les accesseurs à la liste des coordonnees
+		    ImageUtils.writeImage(ImageUtils.compose4Layers(fond, device, contenu(i), main, temp.getCoordX(), temp.getCoordY(), composition), pathOut, String.format("frame_%08d.png", i));
+		}
 		
 	}
 	
 	public static BufferedImage contenu(int i) throws IOException {
-		File pathFrames = new File("images/frames_WakeApp/");
-		BufferedImage contenu = ImageIO.read(new File(pathFrames, String.format("image2_%05d.png", i)));
+		File pathFrames = new File("/home/kaplone/VideoCreation/medias/mjpeg_544x948.avi");
+		BufferedImage contenu = ImageIO.read(new File(pathFrames, String.format("frame_%08d.png", i)));
 		contenu = ImageUtils.scale(contenu, 0.7);
 		
 		return contenu;

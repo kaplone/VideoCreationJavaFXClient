@@ -5,6 +5,9 @@ package com.apptamin.client;
 //             et java.awt.geom.Point2D
 
 import java.lang.Math;
+import java.util.ArrayList;
+
+import com.apptamin.model.ActionPosition;
 
 public class Point {
 	
@@ -44,6 +47,20 @@ public class Point {
 	
 	public Point fingerRelativeToDevice(int x, int y){
 		return fingerRelativeToRootPoint(x + 788, y + 451);// TODO : update with object
+	}
+	
+	public static Point[] getPoints(ActionPosition [] liste){
+		ArrayList<Point> points = new ArrayList<>();
+		for (ActionPosition ap : liste){
+			points.add(Point.getPoint(ap));
+		}
+		
+		return points.toArray(new Point [0]);
+	}
+	
+	public static Point getPoint(ActionPosition ap){
+		
+		return new Point(ap.getCoordX(), ap.getCoordY(), null, ap.getImageNumber()) ;
 	}
 
 	public double getCoordX() {

@@ -4,6 +4,8 @@ import java.io.File;
 import java.net.URL;
 import java.util.ResourceBundle;
 
+import com.apptamin.client.HttpClient;
+import com.apptamin.client.Point;
 import com.apptamin.common.ActionType;
 import com.apptamin.common.DeviceChoices;
 import com.apptamin.common.PositionChoices;
@@ -23,7 +25,6 @@ import utils.ImportedMedia;
 import utils.JsonUtils;
 import utils.ListCellUtils;
 import utils.ParseMedias;
-import utils.Point;
 import javafx.beans.binding.ObjectBinding;
 import javafx.beans.binding.StringBinding;
 import javafx.beans.property.DoubleProperty;
@@ -92,6 +93,8 @@ public class VCGUIController implements Initializable{
 	private Button inButton;
 	@FXML
 	private Button outButton;
+	@FXML
+	private Button buttonGenerate;
 	
 	// ------ actions -----
 	@FXML
@@ -530,6 +533,8 @@ public class VCGUIController implements Initializable{
     
     @FXML
     public void onAddActionButton(){
+    	
+    	 
     	 markerTouch = new MarkerAction("°");
     	 // ajouter un ecouteur sur la marque -> modification
     	 
@@ -575,7 +580,17 @@ public class VCGUIController implements Initializable{
     	
     }
     
-    
+    @FXML
+    public void onButtonGenerate(){
+    	
+    	try {
+			HttpClient.httpClient(actionArray.toArray(new Action [0]));
+		} catch (Exception e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+    	
+    }
 	 
     
     protected void onAddActionButtonMod(){

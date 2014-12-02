@@ -2,6 +2,8 @@ package utils;
 
 import java.io.File;
 import java.io.IOException;
+import java.util.Map;
+import java.util.Map.Entry;
 
 import javafx.beans.property.DoubleProperty;
 import javafx.beans.property.SimpleDoubleProperty;
@@ -23,34 +25,35 @@ public class Splitter {
 	static Image temp;
 
 
-	public static int split(File media, File outDir) throws IOException, JCodecException {
+	public static int split(File media, File outDirFull, File outDirPrev) throws IOException, JCodecException {
 		
-		FileChannelWrapper ch = null;
+		int nbFrames = 0;
+		
 		try {
-		    ch = NIOUtils.readableFileChannel(media);
-		    FrameGrab frameGrab = new FrameGrab(ch);
-		    int i = 0;
-		    while (true) {
-		    	try {
-				  ImageIO.write(frameGrab.getFrame(), "png",
-				    new File(outDir, String.format("frame_%08d.png", i)));
-		    	}
-		    	catch (NullPointerException n){
-		    		break;
-		    	}
-
-				  i++;
-		    }
-		    return i;
-
-
-		} finally {
-		    NIOUtils.closeQuietly(ch);
-		    
-		    temp = new Image("file://" + outDir + String.format("/frame_%08d.png", 0));
-		    width.set(temp.getWidth());
-		    height.set(temp.getHeight());
-		}
+			//ProcessBuilder pb_full = new ProcessBuilder("ffmpeg","-i", media, outdir_full+"/frame_%05d.png");
+            ProcessBuilder pb_prev = new ProcessBuilder("ffmpeg","-i", media.toString(),"-vf", "scale=iw/2:ih/2", outDirPrev+"/frame_%08d.png");
+            //pb.directory(outDirFull);
+            pb_prev.directory(outDirPrev);
+            
+            Process p_prev = pb_prev.start();
+//            AfficheurFlux fluxSortie = new AfficheurFlux(p.getInputStream());
+            FFmpegStdErrParser fluxErreur = new FFmpegStdErrParser(p_prev.getErrorStream());
+//            new Thread(fluxSortie).start();
+            new Thread(fluxErreur).start();
+            
+            p_prev.waitFor();
+            
+            nbFrames = outDirPrev.listFiles().length;
+            width.set(fluxErreur.getSize()[0]);
+            height.set(fluxErreur.getSize()[0]);
+            
+        } catch (IOException e) {
+            e.printStackTrace();	
+        } catch (InterruptedException e) {
+            e.printStackTrace();
+        }
+		
+		return nbFrames;
 	}
 	
 	public static double getWidth(){

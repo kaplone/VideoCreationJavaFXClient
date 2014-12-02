@@ -25,6 +25,7 @@ public class ImportedMedia extends Observable {
 	private final StringProperty name = new SimpleStringProperty();
 	private final ObjectProperty<File> original = new SimpleObjectProperty<File>();
 	private final ObjectProperty<File> mediaPngPath = new SimpleObjectProperty<File>();
+	private final ObjectProperty<File> mediaPngPrevPath = new SimpleObjectProperty<File>();
 	private final DoubleProperty width = new SimpleDoubleProperty();
 	private final DoubleProperty height = new SimpleDoubleProperty();
 	private final BooleanProperty landscape = new SimpleBooleanProperty();
@@ -43,7 +44,9 @@ public class ImportedMedia extends Observable {
 		this.name.set(mediaPath.getName());
 		this.mediaPngPath.set(new File(VCGUIController.getBaseDirMedias().toString(), this.name.get().toString())); 
 		new File(mediaPngPath.get().toString()).mkdirs();
-		this.duration.set(Splitter.split(mediaPath, this.mediaPngPath.get()));
+		this.mediaPngPrevPath.set(new File(VCGUIController.getBaseDirMedias().toString(), "temp/" + this.name.get().toString())); 
+		new File(mediaPngPrevPath.get().toString()).mkdirs();
+		this.duration.set(Splitter.split(mediaPath, this.mediaPngPath.get(),  this.mediaPngPrevPath.get()));
 		this.width.set(Splitter.getWidth());
 		this.height.set(Splitter.getHeight());
 		this.landscape.set(this.width.get() > this.height.get());
@@ -82,11 +85,11 @@ public ImportedMedia(JsonNode jsonSave) throws IOException, JCodecException{
 	}
 
 	public ObjectProperty<File> mediaPngPathProperty() {
-		return mediaPngPath;
+		return mediaPngPrevPath;
 	}
 	
 	public File getMediaPngPath() {
-		return mediaPngPath.get();
+		return mediaPngPrevPath.get();
 	}
 
 

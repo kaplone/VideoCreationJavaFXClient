@@ -15,12 +15,16 @@ import org.apache.http.util.EntityUtils;
 import org.codehaus.jackson.annotate.JsonIgnoreProperties;
 import org.codehaus.jackson.map.ObjectMapper;
 
+import utils.Touch;
+
+import com.apptamin.model.Action;
 import com.apptamin.model.ActionPosition;
+import com.apptamin.client.Point;
 
 
 public class HttpClient {
 	
-	public final static void main(String[] args) throws Exception {
+	public final static void httpClient(Action[] actions) throws Exception {
 		
 		//Logger
 		Log log = LogFactory.getLog(HttpClient.class);
@@ -34,15 +38,32 @@ public class HttpClient {
 
 		// test data
 		PositionsRequest request = new PositionsRequest();
-		request.add(new ActionPosition(280, 190, 169, 0, 0, 0, 1));
-		request.add(new ActionPosition(386, 464, 210, 0, 1, 0, 1));
-		request.add(new ActionPosition(310, 190, 266, 1, 1, 0, 1));
-		request.add(new ActionPosition(340, 100, 560, 1, 0, 0, 1));
+		
+		for (Action a : actions){
+			log.info(a.positionProperty().getValue().getCoordX() + "  " +
+		    		 a.positionProperty().getValue().getCoordY() + "  " +
+		    		 a.positionProperty().getValue().getImageNumber() + "  " +
+		    		 a.preActionProperty().getValue().getCode() + "  " +
+		    		 a.postActionProperty().getValue().getCode() + "  " +
+		    		 0 + "  " +
+		    		 a.actionTypeProperty().getValue().getCode());
+			
+		    request.add(new ActionPosition(a.positionProperty().getValue().getCoordX(),
+		    		                       a.positionProperty().getValue().getCoordY(),
+		    		                       a.positionProperty().getValue().getImageNumber(),
+		    		                       a.preActionProperty().getValue().getCode(),
+		    		                       a.postActionProperty().getValue().getCode(),
+		    		                       0,
+		    		                       a.actionTypeProperty().getValue().getCode()
+		    		                       ));
+		}
 
 		// Convert java objects to JSON
 		ObjectMapper mapper = new ObjectMapper();
 		String jsonpost = mapper.writeValueAsString(request);
+		log.info("_______");
 		log.info(jsonpost);
+		log.info("_______");
 		httppost.setEntity(new StringEntity(jsonpost));
 
 		// Execute query
@@ -57,7 +78,14 @@ public class HttpClient {
 			// Convert result to java object
 			
 			ActionPosition[] result = mapper.readValue(in, ActionPosition[].class);
-			log.info(Arrays.toString(result));
+			
+			for (ActionPosition a : result){
+				log.info(a.print());
+			}
+
+			Point [] points = Point.getPoints(result);
+			PrincipalClient.principalClient(points);
+			
 
 
 			// Close stream
