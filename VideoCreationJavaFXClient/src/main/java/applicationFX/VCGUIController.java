@@ -248,7 +248,7 @@ public class VCGUIController implements Initializable{
 	private Point [] points;
 	
 	private BufferedImage bufferedCompo;
-	
+	private Image[] bufferedCompos;
 	
 	// getters - setters
 	
@@ -634,12 +634,10 @@ public class VCGUIController implements Initializable{
     	
     	try {
 			points = HttpClient.httpClient(actionArray.toArray(new Action [0]), currentMedia.getDuration() );// ameliorer avec diff cut_in cut_out
+			bufferedCompos = PrincipalClient.makeCompo(currentMedia.getName(), points);
 			accordion.setExpandedPane(sequencePane);
+			slider2.setMax(currentMedia.getDuration());
 			
-			// limiter la longueur de la timeline.
-			
-			
-			//affCompo(8);
 		} catch (Exception e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
@@ -648,30 +646,11 @@ public class VCGUIController implements Initializable{
     }
     
     public Image affCompo(int i){
-    	
-    	try {
-			bufferedCompo = PrincipalClient.getCompo(i, points);
-		} catch (IOException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-		} catch (NullPointerException npe) {
-			// TODO Auto-generated catch block
-			npe.printStackTrace();
-		}
-    	
-    	
-    	
-    	WritableImage wr = null;
-        if (bufferedCompo != null) {
-            wr = new WritableImage(bufferedCompo.getWidth(), bufferedCompo.getHeight());
-            PixelWriter pw = wr.getPixelWriter();
-            for (int x = 0; x < bufferedCompo.getWidth(); x++) {
-                for (int y = 0; y < bufferedCompo.getHeight(); y++) {
-                    pw.setArgb(x, y, bufferedCompo.getRGB(x, y));
-                }
-            }
-        }
-    	return wr;
+    	try{
+    	    return bufferedCompos[i];
+    	}catch (NullPointerException npe){
+    		return null;
+    	}
     }
     
     @FXML

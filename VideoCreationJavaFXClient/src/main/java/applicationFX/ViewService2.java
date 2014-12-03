@@ -32,7 +32,6 @@ public class ViewService2 extends Service<Void> {
 							slider2.setValue(f);
 						}
 					});
-					
 					Thread.sleep(40);
 					f++;
 				}

@@ -49,13 +49,6 @@ public class HttpClient {
 		PositionsRequest request = new PositionsRequest();
 		
 		for (Action a : actions){
-//			log.info(a.positionProperty().getValue().getCoordX() + "  " +
-//		    		 a.positionProperty().getValue().getCoordY() + "  " +
-//		    		 a.positionProperty().getValue().getImageNumber() + "  " +
-//		    		 a.preActionProperty().getValue().getCode() + "  " +
-//		    		 a.postActionProperty().getValue().getCode() + "  " +
-//		    		 0 + "  " +
-//		    		 a.actionTypeProperty().getValue().getCode());
 			
 		    request.add(new ActionPosition(a.positionProperty().getValue().getCoordX(),
 		    		                       a.positionProperty().getValue().getCoordY(),
@@ -89,18 +82,16 @@ public class HttpClient {
 			framesSet = resultMap.keySet();
 			
 			
-			for (int j = 0;j < length; j++){
+			for (int j = 1;j < length; j++){
 				if (! framesSet.contains(j)){
 					System.out.println(j + " non présent");
-					resultMap.put(j, new Point(200, 200, null,  j));
+					resultMap.put(j, new Point(100, 450, null,  j));
 				}
 				else {
 					System.out.println(j + " présent");
 				}
 				
-			}
-			//PrincipalClient.principalClient(points);
-			
+			}			
 
 			// Close stream
 			EntityUtils.consume(entity);
@@ -111,7 +102,7 @@ public class HttpClient {
 		points = new Point [resultMap.size()];
 				
 		for (Integer i : framesSet){
-			points[i] = resultMap.get(i);
+			points[i - 1] = resultMap.get(i -1);
 			
 		}
 		return points;
